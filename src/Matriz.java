@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -8,7 +7,7 @@ public class Matriz {
 	protected double[][] matriz;
 	private List<String> opciones; ///tanto criterios como opciones de pcs
 	
-	public Matriz(int mf, int mc, List<String> ops){
+	public Matriz(int mf, int mc, List<String> ops){ //le llega la lista de string de las opciones de pc o de alternativas, y todas las matrices tienen el mismo orden
 		if (ops == null){
 			maxFilas= mf;
 			maxColumnas= mc;
@@ -21,6 +20,14 @@ public class Matriz {
 		matriz = new double [maxFilas][maxColumnas];
 	}
 
+	public int filas(){
+		return maxFilas;
+	}
+	
+	public int columnas(){
+		return maxColumnas;
+	}
+	
 	public double get (int f, int c){
 		return matriz[f][c];
 	}
@@ -76,5 +83,30 @@ public class Matriz {
 		}
 		return salida;
 	}
+	
+	public void addFila(Vector<Double>vect){
+		double[][] nueva = new double[maxFilas+1][maxColumnas];
+		for (int f=0; f<maxFilas; f++)
+			for (int c=0; c<maxColumnas; c++){
+				nueva[f][c] = matriz[f][c];
+			}
+		for (int c=0; c<maxColumnas; c++){
+			nueva[maxFilas+1][c]=vect.get(c);
+		}
+		matriz = nueva;
+	}
+	
+	public void addColumna(Vector<Double>vect){
+		double[][] nueva = new double[maxFilas][maxColumnas+1];
+		for (int f=0; f<maxFilas; f++)
+			for (int c=0; c<maxColumnas; c++){
+				nueva[f][c] = matriz[f][c];
+			}
+		for (int f=0; f<maxFilas; f++){
+			nueva[f][maxColumnas+1]=vect.get(f);
+		}
+		matriz = nueva;
+	}
+	
 	
 }
