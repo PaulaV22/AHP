@@ -50,7 +50,7 @@ public class Ventana extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\paula\\Documents\\UNI\\TERCERO\\OBJETOS\\AHP\\resources\\icon.png"));
 		setTitle("Pc Browser");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 728, 449);
+		setBounds(100, 100, 744, 540);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -86,26 +86,6 @@ public class Ventana extends JFrame {
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_1.setBounds(49, 209, 69, 20);
 		contentPane.add(lblNewLabel_1);
-		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Programaci\u00F3n");
-		rdbtnNewRadioButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		rdbtnNewRadioButton.setBounds(135, 219, 155, 29);
-		contentPane.add(rdbtnNewRadioButton);
-		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Office");
-		rdbtnNewRadioButton_1.setFont(new Font("Dialog", Font.PLAIN, 18));
-		rdbtnNewRadioButton_1.setBounds(135, 255, 155, 29);
-		contentPane.add(rdbtnNewRadioButton_1);
-		
-		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("Edicion audiovisual");
-		rdbtnNewRadioButton_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		rdbtnNewRadioButton_2.setBounds(135, 292, 192, 29);
-		contentPane.add(rdbtnNewRadioButton_2);
-		
-		JRadioButton rdbtnNewRadioButton_3 = new JRadioButton("Redes sociales");
-		rdbtnNewRadioButton_3.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		rdbtnNewRadioButton_3.setBounds(135, 329, 155, 29);
-		contentPane.add(rdbtnNewRadioButton_3);
 		
 		JLabel lblPantalla = new JLabel("Pantalla");
 		lblPantalla.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -160,5 +140,84 @@ public class Ventana extends JFrame {
 		slider_1.setValue(0);
 		slider_1.setBounds(486, 312, 155, 26);
 		contentPane.add(slider_1);
+		
+		JLabel lblCapacidad = new JLabel("Capacidad");
+		lblCapacidad.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCapacidad.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblCapacidad.setBounds(366, 357, 105, 20);
+		contentPane.add(lblCapacidad);
+		
+		JSlider slider_2 = new JSlider();
+		slider_2.setValue(0);
+		slider_2.setBounds(486, 350, 155, 26);
+		contentPane.add(slider_2);
+		
+		JLabel lblProgramacin = new JLabel("Programaci\u00F3n");
+		lblProgramacin.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblProgramacin.setBounds(135, 238, 119, 20);
+		contentPane.add(lblProgramacin);
+		
+		JRadioButton rdbtnNulo = new JRadioButton("Nulo");
+		rdbtnNulo.setBounds(71, 259, 69, 29);
+		contentPane.add(rdbtnNulo);
+		
+		JRadioButton rdbtnNewRadioButton = new JRadioButton("Medio");
+		rdbtnNewRadioButton.setBounds(153, 259, 83, 29);
+		contentPane.add(rdbtnNewRadioButton);
+		
+		JRadioButton rdbtnAlto = new JRadioButton("Alto");
+		rdbtnAlto.setBounds(243, 256, 155, 29);
+		contentPane.add(rdbtnAlto);
+		
+		JLabel lblEdicinAudiovisual = new JLabel("Edici\u00F3n audiovisual");
+		lblEdicinAudiovisual.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblEdicinAudiovisual.setBounds(135, 296, 155, 20);
+		contentPane.add(lblEdicinAudiovisual);
+		
+		JRadioButton rdbtnNulo_1 = new JRadioButton("Nulo");
+		rdbtnNulo_1.setBounds(71, 316, 81, 29);
+		contentPane.add(rdbtnNulo_1);
+		
+		JRadioButton rdbtnMedio = new JRadioButton("Alto");
+		rdbtnMedio.setBounds(243, 316, 155, 29);
+		contentPane.add(rdbtnMedio);
+		
+		JRadioButton rdbtnMedio_1 = new JRadioButton("Medio");
+		rdbtnMedio_1.setBounds(153, 316, 75, 29);
+		contentPane.add(rdbtnMedio_1);
+		
+		JLabel lblRedesSociales = new JLabel("Redes sociales");
+		lblRedesSociales.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblRedesSociales.setBounds(135, 358, 146, 20);
+		contentPane.add(lblRedesSociales);
+		
+		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("Nulo");
+		rdbtnNewRadioButton_2.setBounds(71, 378, 69, 29);
+		contentPane.add(rdbtnNewRadioButton_2);
+		
+		JRadioButton rdbtnMedio_2 = new JRadioButton("Medio");
+		rdbtnMedio_2.setBounds(153, 378, 83, 29);
+		contentPane.add(rdbtnMedio_2);
+		
+		JRadioButton rdbtnAlto_1 = new JRadioButton("Alto");
+		rdbtnAlto_1.setBounds(243, 378, 155, 29);
+		contentPane.add(rdbtnAlto_1);
+		
+		JLabel lblOffice = new JLabel("Office");
+		lblOffice.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblOffice.setBounds(135, 421, 69, 20);
+		contentPane.add(lblOffice);
+		
+		JRadioButton rdbtnNulo_2 = new JRadioButton("Nulo");
+		rdbtnNulo_2.setBounds(71, 443, 69, 29);
+		contentPane.add(rdbtnNulo_2);
+		
+		JRadioButton rdbtnMedio_3 = new JRadioButton("Medio");
+		rdbtnMedio_3.setBounds(153, 443, 83, 29);
+		contentPane.add(rdbtnMedio_3);
+		
+		JRadioButton rdbtnAlto_2 = new JRadioButton("Alto");
+		rdbtnAlto_2.setBounds(243, 443, 155, 29);
+		contentPane.add(rdbtnAlto_2);
 	}
 }
