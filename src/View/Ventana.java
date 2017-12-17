@@ -56,7 +56,7 @@ public class Ventana extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblquAndsBuscando = new JLabel("\u00BFQu\u00E9 est\u00E1s buscando?");
+		JLabel lblquAndsBuscando = new JLabel("Hola! Paula");
 		lblquAndsBuscando.setFont(new Font("SansSerif", Font.PLAIN, 24));
 		lblquAndsBuscando.setBounds(210, 16, 261, 29);
 		contentPane.add(lblquAndsBuscando);
