@@ -1,6 +1,6 @@
 package Model;
 import java.util.Comparator;
-//Probando el githubbbb no borrar esto
+//Probando el githubbddddbb no borrar esto
 // 1 2 3 4
 public class ComparadorScores implements Comparator<Score>{
 
