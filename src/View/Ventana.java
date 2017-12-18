@@ -20,12 +20,16 @@ import javax.swing.SwingConstants;
 import javax.swing.JRadioButton;
 import javax.swing.ListSelectionModel;
 import java.awt.Toolkit;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 public class Ventana extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField textFieldPrecioMax;
+	private JTextField textFieldAutonomia;
 
 	/**
 	 * Launch the application.
@@ -66,10 +70,17 @@ public class Ventana extends JFrame {
 		lblPrecioMximo.setBounds(15, 94, 155, 24);
 		contentPane.add(lblPrecioMximo);
 		
-		textField = new JTextField();
-		textField.setBounds(135, 94, 146, 26);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		textFieldPrecioMax = new JTextField();
+		textFieldPrecioMax.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent arg0) {
+				Integer preciomax= Integer.valueOf(textFieldPrecioMax.getText());
+				
+			}
+		});
+		
+		textFieldPrecioMax.setBounds(135, 94, 146, 26);
+		contentPane.add(textFieldPrecioMax);
+		textFieldPrecioMax.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Marca");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -104,10 +115,10 @@ public class Ventana extends JFrame {
 		lblAutonomahs.setBounds(346, 155, 125, 20);
 		contentPane.add(lblAutonomahs);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(486, 154, 146, 26);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
+		textFieldAutonomia = new JTextField();
+		textFieldAutonomia.setBounds(486, 154, 146, 26);
+		contentPane.add(textFieldAutonomia);
+		textFieldAutonomia.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Conectividad");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -144,17 +155,18 @@ public class Ventana extends JFrame {
 		JLabel lblCapacidad = new JLabel("Capacidad");
 		lblCapacidad.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCapacidad.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblCapacidad.setBounds(366, 357, 105, 20);
+		lblCapacidad.setBounds(366, 369, 105, 20);
 		contentPane.add(lblCapacidad);
 		
 		JSlider slider_2 = new JSlider();
 		slider_2.setValue(0);
-		slider_2.setBounds(486, 350, 155, 26);
+		slider_2.setBounds(486, 363, 155, 26);
 		contentPane.add(slider_2);
 		
 		JLabel lblProgramacin = new JLabel("Programaci\u00F3n");
+		lblProgramacin.setHorizontalAlignment(SwingConstants.CENTER);
 		lblProgramacin.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblProgramacin.setBounds(135, 238, 119, 20);
+		lblProgramacin.setBounds(135, 238, 146, 20);
 		contentPane.add(lblProgramacin);
 		
 		JRadioButton rdbtnNulo = new JRadioButton("Nulo");
@@ -170,6 +182,7 @@ public class Ventana extends JFrame {
 		contentPane.add(rdbtnAlto);
 		
 		JLabel lblEdicinAudiovisual = new JLabel("Edici\u00F3n audiovisual");
+		lblEdicinAudiovisual.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEdicinAudiovisual.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblEdicinAudiovisual.setBounds(135, 296, 155, 20);
 		contentPane.add(lblEdicinAudiovisual);
@@ -187,8 +200,9 @@ public class Ventana extends JFrame {
 		contentPane.add(rdbtnMedio_1);
 		
 		JLabel lblRedesSociales = new JLabel("Redes sociales");
+		lblRedesSociales.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRedesSociales.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblRedesSociales.setBounds(135, 358, 146, 20);
+		lblRedesSociales.setBounds(135, 356, 146, 20);
 		contentPane.add(lblRedesSociales);
 		
 		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("Nulo");
@@ -204,8 +218,9 @@ public class Ventana extends JFrame {
 		contentPane.add(rdbtnAlto_1);
 		
 		JLabel lblOffice = new JLabel("Office");
+		lblOffice.setHorizontalAlignment(SwingConstants.CENTER);
 		lblOffice.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblOffice.setBounds(135, 421, 69, 20);
+		lblOffice.setBounds(126, 419, 155, 20);
 		contentPane.add(lblOffice);
 		
 		JRadioButton rdbtnNulo_2 = new JRadioButton("Nulo");
