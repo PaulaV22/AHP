@@ -1,6 +1,6 @@
 package Model;
 import java.util.Comparator;
-//ggg cambio
+//ggg cambiodd
 public class ComparadorScores implements Comparator<Score>{
 
 	public int compare(Score s1, Score s2) {
