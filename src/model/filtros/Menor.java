@@ -1,7 +1,6 @@
-package Controller;
+package model.filtros;
 
-import Model.Computadora;
-import Model.Pc;
+import model.Pc;
 
 public class Menor extends Filtro{
 	

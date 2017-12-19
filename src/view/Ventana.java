@@ -1,4 +1,4 @@
-package View;
+package view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -6,6 +6,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import model.filtros.Filtro;
+import model.filtros.Menor;
+
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
@@ -70,14 +74,7 @@ public class Ventana extends JFrame {
 		lblPrecioMximo.setBounds(15, 94, 155, 24);
 		contentPane.add(lblPrecioMximo);
 		
-		textFieldPrecioMax = new JTextField();
-		textFieldPrecioMax.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent arg0) {
-				Integer preciomax= Integer.valueOf(textFieldPrecioMax.getText());
-				
-			}
-		});
-		
+		textFieldPrecioMax = new JTextField();		
 		textFieldPrecioMax.setBounds(135, 94, 146, 26);
 		contentPane.add(textFieldPrecioMax);
 		textFieldPrecioMax.setColumns(10);
