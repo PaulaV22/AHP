@@ -1,6 +1,6 @@
-package Controller;
+package model.filtros;
 
-import Model.Pc;
+import model.Pc;
 
 public class Igual extends Filtro {
 

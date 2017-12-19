@@ -1,8 +1,8 @@
-package Model;
+package model;
 
 import java.util.Hashtable;
 
-public class Pc {
+public class Pc implements java.io.Serializable {
 	private Hashtable<String, Object> atributos;
 	
 	public Pc(){

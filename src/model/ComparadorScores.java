@@ -1,4 +1,4 @@
-package Model;
+package model;
 import java.util.Comparator;
 
 public class ComparadorScores implements Comparator<Score>{
