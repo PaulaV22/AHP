@@ -8,11 +8,14 @@ public class Decisor {
 	private List<Matriz> normalizadas;
 	private List<String> alternativas;
 	
-	public Decisor (){
-		matrices = new ArrayList<>();
-		normalizadas = new ArrayList<>();
-		alternativas = new ArrayList<>();   //VER COMO LE LLEGAN LAS ALTERNATIVAS AL DECISOR
+	public Decisor (List<Pc> alternativas){
+		this.matrices = new ArrayList<>();
+		this.normalizadas = new ArrayList<>();
+		for (Pc pc:alternativas){
+			this.alternativas.add((String) pc.get("modelo"));
+		}; 
 	}
+
 	
 	public void addMatriz(Matriz m){
 		matrices.add(m);

@@ -7,7 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import controller.Controller;
 import model.filtros.Filtro;
+import model.filtros.Igual;
 import model.filtros.Menor;
 
 import java.awt.GridBagLayout;
@@ -28,13 +30,23 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
+import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
-public class Ventana extends JFrame {
+public class VentanaInicial extends JFrame  {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textFieldPrecioMax;
 	private JTextField textFieldAutonomia;
-
+	private static Controller controlador;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -42,7 +54,8 @@ public class Ventana extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Ventana frame = new Ventana();
+					controlador = new Controller();
+					VentanaInicial frame = new VentanaInicial();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -54,25 +67,26 @@ public class Ventana extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Ventana() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\paula\\Documents\\UNI\\TERCERO\\OBJETOS\\AHP\\resources\\icon.png"));
+	public VentanaInicial() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("icon.png"));
 		setTitle("Pc Browser");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 744, 540);
+		setBounds(100, 100, 847, 572);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblquAndsBuscando = new JLabel("\u00BFQu\u00E9 est\u00E1s buscando?");
+		lblquAndsBuscando.setHorizontalAlignment(SwingConstants.CENTER);
 		lblquAndsBuscando.setFont(new Font("SansSerif", Font.PLAIN, 24));
-		lblquAndsBuscando.setBounds(210, 16, 261, 29);
+		lblquAndsBuscando.setBounds(15, 16, 795, 29);
 		contentPane.add(lblquAndsBuscando);
 		
-		JLabel lblPrecioMximo = new JLabel("Precio m\u00E1ximo");
-		lblPrecioMximo.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblPrecioMximo.setBounds(15, 94, 155, 24);
-		contentPane.add(lblPrecioMximo);
+		JLabel lblPrecioMaximo = new JLabel("Precio m\u00E1ximo");
+		lblPrecioMaximo.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblPrecioMaximo.setBounds(15, 94, 155, 24);
+		contentPane.add(lblPrecioMaximo);
 		
 		textFieldPrecioMax = new JTextField();		
 		textFieldPrecioMax.setBounds(135, 94, 146, 26);
@@ -82,154 +96,198 @@ public class Ventana extends JFrame {
 		JLabel lblNewLabel = new JLabel("Marca");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel.setBounds(49, 155, 69, 20);
+		lblNewLabel.setBounds(50, 156, 69, 20);
 		contentPane.add(lblNewLabel);
 		
-		JList list = new JList();
-		list.setBounds(135, 154, 146, 26);
-		contentPane.add(list);
+		JComboBox listMarcas = new JComboBox();
+		listMarcas.setModel(new DefaultComboBoxModel(new String[] {"Acer", "Compaq", "Dell", "HP", "Lenovo", "Mac", "Samsung", "Vaio", "No se"}));
+		listMarcas.setBounds(135, 154, 146, 26);
+		contentPane.add(listMarcas);
 		
 		JLabel lblNewLabel_1 = new JLabel("Usos");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_1.setBounds(49, 209, 69, 20);
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setBounds(611, 94, 125, 20);
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblPantalla = new JLabel("Pantalla");
 		lblPantalla.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblPantalla.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblPantalla.setBounds(402, 94, 69, 20);
+		lblPantalla.setBounds(50, 394, 69, 20);
 		contentPane.add(lblPantalla);
 		
-		JList list_1 = new JList();
-		list_1.setToolTipText("11\r\n11.5\r\n12\r\n12.5\r\n13\r\n13.5\r\n14\r\n14.5\r\n15\r\n15.5\r\n16\r\n16.5");
-		list_1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		list_1.setBounds(486, 91, 146, 29);
-		contentPane.add(list_1);
-		
-		JLabel lblAutonomahs = new JLabel("Autonom\u00EDa (hs)");
+		JLabel lblAutonomahs = new JLabel("Autonom\u00EDa");
+		lblAutonomahs.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblAutonomahs.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblAutonomahs.setBounds(346, 155, 125, 20);
+		lblAutonomahs.setBounds(24, 454, 95, 20);
 		contentPane.add(lblAutonomahs);
 		
 		textFieldAutonomia = new JTextField();
-		textFieldAutonomia.setBounds(486, 154, 146, 26);
+		textFieldAutonomia.setBounds(135, 452, 73, 26);
 		contentPane.add(textFieldAutonomia);
 		textFieldAutonomia.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Conectividad");
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel_2.setBounds(366, 209, 105, 20);
+		lblNewLabel_2.setBounds(381, 94, 125, 20);
 		contentPane.add(lblNewLabel_2);
-		
-		JList list_2 = new JList();
-		list_2.setBounds(486, 209, 146, 32);
-		contentPane.add(list_2);
 		
 		JLabel lblVelocidad = new JLabel("Velocidad");
 		lblVelocidad.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblVelocidad.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblVelocidad.setBounds(376, 259, 95, 20);
+		lblVelocidad.setBounds(24, 214, 95, 20);
 		contentPane.add(lblVelocidad);
 		
 		JSlider slider = new JSlider();
 		slider.setValue(0);
-		slider.setBounds(486, 255, 155, 26);
+		slider.setBounds(135, 214, 146, 26);
 		contentPane.add(slider);
 		
 		JLabel lblPeso = new JLabel("Peso");
 		lblPeso.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblPeso.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPeso.setVerticalAlignment(SwingConstants.BOTTOM);
-		lblPeso.setBounds(402, 312, 69, 20);
+		lblPeso.setBounds(50, 274, 69, 20);
 		contentPane.add(lblPeso);
 		
 		JSlider slider_1 = new JSlider();
 		slider_1.setValue(0);
-		slider_1.setBounds(486, 312, 155, 26);
+		slider_1.setBounds(135, 274, 146, 26);
 		contentPane.add(slider_1);
 		
 		JLabel lblCapacidad = new JLabel("Capacidad");
 		lblCapacidad.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCapacidad.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblCapacidad.setBounds(366, 369, 105, 20);
+		lblCapacidad.setBounds(14, 334, 105, 20);
 		contentPane.add(lblCapacidad);
 		
 		JSlider slider_2 = new JSlider();
 		slider_2.setValue(0);
-		slider_2.setBounds(486, 363, 155, 26);
+		slider_2.setBounds(135, 334, 146, 26);
 		contentPane.add(slider_2);
 		
 		JLabel lblProgramacin = new JLabel("Programaci\u00F3n");
 		lblProgramacin.setHorizontalAlignment(SwingConstants.CENTER);
 		lblProgramacin.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblProgramacin.setBounds(135, 238, 146, 20);
+		lblProgramacin.setBounds(600, 130, 155, 20);
 		contentPane.add(lblProgramacin);
 		
 		JRadioButton rdbtnNulo = new JRadioButton("Nulo");
-		rdbtnNulo.setBounds(71, 259, 69, 29);
+		rdbtnNulo.setBounds(562, 153, 69, 29);
 		contentPane.add(rdbtnNulo);
 		
 		JRadioButton rdbtnNewRadioButton = new JRadioButton("Medio");
-		rdbtnNewRadioButton.setBounds(153, 259, 83, 29);
+		rdbtnNewRadioButton.setBounds(638, 153, 83, 29);
 		contentPane.add(rdbtnNewRadioButton);
 		
 		JRadioButton rdbtnAlto = new JRadioButton("Alto");
-		rdbtnAlto.setBounds(243, 256, 155, 29);
+		rdbtnAlto.setBounds(728, 153, 73, 29);
 		contentPane.add(rdbtnAlto);
 		
 		JLabel lblEdicinAudiovisual = new JLabel("Edici\u00F3n audiovisual");
 		lblEdicinAudiovisual.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEdicinAudiovisual.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblEdicinAudiovisual.setBounds(135, 296, 155, 20);
+		lblEdicinAudiovisual.setBounds(600, 197, 155, 20);
 		contentPane.add(lblEdicinAudiovisual);
 		
 		JRadioButton rdbtnNulo_1 = new JRadioButton("Nulo");
-		rdbtnNulo_1.setBounds(71, 316, 81, 29);
+		rdbtnNulo_1.setBounds(562, 229, 69, 29);
 		contentPane.add(rdbtnNulo_1);
 		
 		JRadioButton rdbtnMedio = new JRadioButton("Alto");
-		rdbtnMedio.setBounds(243, 316, 155, 29);
+		rdbtnMedio.setBounds(728, 229, 73, 29);
 		contentPane.add(rdbtnMedio);
 		
 		JRadioButton rdbtnMedio_1 = new JRadioButton("Medio");
-		rdbtnMedio_1.setBounds(153, 316, 75, 29);
+		rdbtnMedio_1.setBounds(638, 229, 75, 29);
 		contentPane.add(rdbtnMedio_1);
 		
 		JLabel lblRedesSociales = new JLabel("Redes sociales");
 		lblRedesSociales.setHorizontalAlignment(SwingConstants.CENTER);
 		lblRedesSociales.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblRedesSociales.setBounds(135, 356, 146, 20);
+		lblRedesSociales.setBounds(600, 273, 155, 20);
 		contentPane.add(lblRedesSociales);
 		
 		JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("Nulo");
-		rdbtnNewRadioButton_2.setBounds(71, 378, 69, 29);
+		rdbtnNewRadioButton_2.setBounds(562, 305, 69, 29);
 		contentPane.add(rdbtnNewRadioButton_2);
 		
 		JRadioButton rdbtnMedio_2 = new JRadioButton("Medio");
-		rdbtnMedio_2.setBounds(153, 378, 83, 29);
+		rdbtnMedio_2.setBounds(638, 305, 83, 29);
 		contentPane.add(rdbtnMedio_2);
 		
 		JRadioButton rdbtnAlto_1 = new JRadioButton("Alto");
-		rdbtnAlto_1.setBounds(243, 378, 155, 29);
+		rdbtnAlto_1.setBounds(728, 305, 155, 29);
 		contentPane.add(rdbtnAlto_1);
 		
 		JLabel lblOffice = new JLabel("Office");
 		lblOffice.setHorizontalAlignment(SwingConstants.CENTER);
 		lblOffice.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblOffice.setBounds(126, 419, 155, 20);
+		lblOffice.setBounds(600, 340, 155, 20);
 		contentPane.add(lblOffice);
 		
 		JRadioButton rdbtnNulo_2 = new JRadioButton("Nulo");
-		rdbtnNulo_2.setBounds(71, 443, 69, 29);
+		rdbtnNulo_2.setBounds(562, 372, 69, 29);
 		contentPane.add(rdbtnNulo_2);
 		
 		JRadioButton rdbtnMedio_3 = new JRadioButton("Medio");
-		rdbtnMedio_3.setBounds(153, 443, 83, 29);
+		rdbtnMedio_3.setBounds(638, 372, 83, 29);
 		contentPane.add(rdbtnMedio_3);
 		
 		JRadioButton rdbtnAlto_2 = new JRadioButton("Alto");
-		rdbtnAlto_2.setBounds(243, 443, 155, 29);
+		rdbtnAlto_2.setBounds(728, 372, 155, 29);
 		contentPane.add(rdbtnAlto_2);
+				
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"13.0", "13.5", "14.0", "14.5", "15.0", "15.5", "16.0"}));
+		comboBox.setBounds(135, 394, 146, 26);
+		contentPane.add(comboBox);
+		
+		JLabel lblHs = new JLabel("hs");
+		lblHs.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblHs.setBounds(212, 454, 38, 20);
+		contentPane.add(lblHs);
+		
+		JRadioButton rdbtnWifi = new JRadioButton("WiFi");
+		rdbtnWifi.setBounds(381, 154, 155, 29);
+		contentPane.add(rdbtnWifi);
+		
+		JRadioButton rdbtnHdmi = new JRadioButton("HDMI");
+		rdbtnHdmi.setBounds(381, 214, 83, 29);
+		contentPane.add(rdbtnHdmi);
+		
+		JRadioButton rdbtnCddvd = new JRadioButton("CD/DVD");
+		rdbtnCddvd.setBounds(381, 274, 95, 29);
+		contentPane.add(rdbtnCddvd);
+		
+		JRadioButton rdbtnUsb = new JRadioButton("USB");
+		rdbtnUsb.setBounds(381, 334, 69, 29);
+		contentPane.add(rdbtnUsb);
+		
+		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"0", "1", "2", "3", "4", "5"}));
+		comboBox_1.setBounds(456, 334, 50, 26);
+		contentPane.add(comboBox_1);
+		
+		JRadioButton rdbtnBluethoot = new JRadioButton("Bluethoot");
+		rdbtnBluethoot.setBounds(381, 394, 105, 29);
+		contentPane.add(rdbtnBluethoot);
+		
+		JButton btnBuscar = new JButton("Siguiente");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnBuscar.addMouseListener(new MouseAdapter() {
+			//PASARLE EL VALOR DE TODAS LAS VARIABLES A LA SIGUIENTE VENTANA PARA QUE SE LA PUEDA PASAR AL CONTROLADOR
+			//VER DE FILTRAR ACA Y SEGUIR CON LA LISTA LIMITADA O DIRECTAMENTE FILTRAR EN LA SIGUIENTE VENTANA
+			
+		});
+		btnBuscar.setBounds(621, 451, 115, 29);
+		contentPane.add(btnBuscar);
+		
+		
 	}
 }
