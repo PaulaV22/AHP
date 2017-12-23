@@ -29,6 +29,8 @@ import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.beans.PropertyChangeEvent;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
@@ -89,6 +91,7 @@ public class VentanaInicial extends JFrame  {
 		contentPane.add(lblPrecioMaximo);
 		
 		textFieldPrecioMax = new JTextField();		
+		textFieldPrecioMax.setText("0.0");
 		textFieldPrecioMax.setBounds(135, 94, 146, 26);
 		contentPane.add(textFieldPrecioMax);
 		textFieldPrecioMax.setColumns(10);
@@ -100,7 +103,7 @@ public class VentanaInicial extends JFrame  {
 		contentPane.add(lblNewLabel);
 		
 		JComboBox listMarcas = new JComboBox();
-		listMarcas.setModel(new DefaultComboBoxModel(new String[] {"Acer", "Compaq", "Dell", "HP", "Lenovo", "Mac", "Samsung", "Vaio", "No se"}));
+		listMarcas.setModel(new DefaultComboBoxModel(new String[] {"No se", "Acer", "Compaq", "Dell", "HP", "Lenovo", "Mac", "Samsung", "Vaio"}));
 		listMarcas.setBounds(135, 154, 146, 26);
 		contentPane.add(listMarcas);
 		
@@ -123,6 +126,7 @@ public class VentanaInicial extends JFrame  {
 		contentPane.add(lblAutonomahs);
 		
 		textFieldAutonomia = new JTextField();
+		textFieldAutonomia.setText("0.0");
 		textFieldAutonomia.setBounds(135, 452, 73, 26);
 		contentPane.add(textFieldAutonomia);
 		textFieldAutonomia.setColumns(10);
@@ -163,6 +167,8 @@ public class VentanaInicial extends JFrame  {
 		contentPane.add(lblCapacidad);
 		
 		JSlider slider_2 = new JSlider();
+		slider_2.setMaximum(1000000);
+		slider_2.setMinimum(150);
 		slider_2.setValue(0);
 		slider_2.setBounds(135, 334, 146, 26);
 		contentPane.add(slider_2);
@@ -276,15 +282,32 @@ public class VentanaInicial extends JFrame  {
 		contentPane.add(rdbtnBluethoot);
 		
 		JButton btnBuscar = new JButton("Siguiente");
-		btnBuscar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		btnBuscar.addMouseListener(new MouseAdapter() {
+			@SuppressWarnings("deprecation")
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				Double preciomax = Double.valueOf(textFieldPrecioMax.getText());
+				List <Filtro> filtros = new ArrayList<>();
+				if (!preciomax.equals(0.0)){
+					Filtro preciomenor = new Menor ("precio", preciomax);
+					filtros.add(preciomenor);
+				}
+				if (!listMarcas.getSelectedItem().toString().equals("No se")){
+					Filtro marcaigual = new Igual ("marca",listMarcas.getSelectedItem().toString());
+					filtros.add(marcaigual);
+				}
+				//VER FILTROS DE LOS USOS DEPENDE DE LO QUE INVESTIGUEMOS DE LOS PROGRAMAS
+				
+				controlador.setFiltros(filtros);
+				//VER DE PASARLE CADA DATO INGRESADO AL CONTROLADOR
+				
+				
+				VentanaComparaciones vc = new VentanaComparaciones(controlador);
+				vc.show();
 			}
 		});
-		btnBuscar.addMouseListener(new MouseAdapter() {
-			//PASARLE EL VALOR DE TODAS LAS VARIABLES A LA SIGUIENTE VENTANA PARA QUE SE LA PUEDA PASAR AL CONTROLADOR
-			//VER DE FILTRAR ACA Y SEGUIR CON LA LISTA LIMITADA O DIRECTAMENTE FILTRAR EN LA SIGUIENTE VENTANA
-			
-		});
+
+		
 		btnBuscar.setBounds(621, 451, 115, 29);
 		contentPane.add(btnBuscar);
 		
