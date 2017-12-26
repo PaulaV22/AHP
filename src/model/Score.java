@@ -25,4 +25,7 @@ public class Score {
 		this.score = score;
 	}
 	
+	public String toString(){
+		return (this.nombre+":"+this.score);
+	}
 }
