@@ -131,5 +131,13 @@ public class Matriz {
 			text=text+"]";
 		return text;
 	}
+
+	public Matriz clone(Matriz mat){
+		Matriz matrizNueva = new Matriz(mat.maxFilas,mat.maxColumnas,null);
+		for(int i=0;i<matrizNueva.maxFilas;i++)
+			for(int j=0;j<matrizNueva.maxColumnas;j++)
+				matrizNueva.set(i, j,mat.get(i, j));
+		return matrizNueva;
+	}
 	
 }
