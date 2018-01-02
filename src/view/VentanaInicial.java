@@ -300,11 +300,13 @@ public class VentanaInicial extends JFrame  {
 				
 				controlador.setFiltros(filtros);
 				//VER DE PASARLE CADA DATO INGRESADO AL CONTROLADOR
+				//List<Object> datos = new ArrayList<>();
 				
 				
 				VentanaComparaciones vc = new VentanaComparaciones(controlador);
 				vc.show();
 			}
+			
 		});
 
 		
