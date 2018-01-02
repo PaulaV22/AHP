@@ -57,10 +57,10 @@ public class Decisor {
 			Vector <Double> v = m.getVector();
 			vectores.add(v);
 		}
-		
-		Vector<Double> aux = vectores.remove(0); //pone al final el vector de los criterios para
-		vectores.add(aux);				// que quede al final en la matriz de scores globales
-		
+		if (vectores.size()>0){
+			Vector<Double> aux = vectores.remove(0); //pone al final el vector de los criterios para
+			vectores.add(aux);				// que quede al final en la matriz de scores globales
+		}
 		Matriz scores = this.generarMatriz(vectores);
 		Vector<Score> salida = this.getScores(scores);
 		salida.sort(new ComparadorScores());
