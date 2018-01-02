@@ -143,10 +143,10 @@ public class VentanaInicial extends JFrame  {
 		lblVelocidad.setBounds(24, 214, 95, 20);
 		contentPane.add(lblVelocidad);
 		
-		JSlider slider = new JSlider();
-		slider.setValue(0);
-		slider.setBounds(135, 214, 146, 26);
-		contentPane.add(slider);
+		JSlider sliderVelocidad = new JSlider();
+		sliderVelocidad.setValue(0);
+		sliderVelocidad.setBounds(135, 214, 146, 26);
+		contentPane.add(sliderVelocidad);
 		
 		JLabel lblPeso = new JLabel("Peso");
 		lblPeso.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -155,10 +155,10 @@ public class VentanaInicial extends JFrame  {
 		lblPeso.setBounds(50, 274, 69, 20);
 		contentPane.add(lblPeso);
 		
-		JSlider slider_1 = new JSlider();
-		slider_1.setValue(0);
-		slider_1.setBounds(135, 274, 146, 26);
-		contentPane.add(slider_1);
+		JSlider sliderPeso = new JSlider();
+		sliderPeso.setValue(0);
+		sliderPeso.setBounds(135, 274, 146, 26);
+		contentPane.add(sliderPeso);
 		
 		JLabel lblCapacidad = new JLabel("Capacidad");
 		lblCapacidad.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -166,14 +166,14 @@ public class VentanaInicial extends JFrame  {
 		lblCapacidad.setBounds(14, 334, 105, 20);
 		contentPane.add(lblCapacidad);
 		
-		JSlider slider_2 = new JSlider();
-		slider_2.setMaximum(1000000);
-		slider_2.setMinimum(150);
-		slider_2.setValue(0);
-		slider_2.setBounds(135, 334, 146, 26);
-		contentPane.add(slider_2);
+		JSlider sliderCapacidad = new JSlider();
+		sliderCapacidad.setMaximum(1000000);
+		sliderCapacidad.setMinimum(150);
+		sliderCapacidad.setValue(0);
+		sliderCapacidad.setBounds(135, 334, 146, 26);
+		contentPane.add(sliderCapacidad);
 		
-		JLabel lblProgramacin = new JLabel("Programaci\u00F3n");
+		JLabel lblProgramacin = new JLabel("Programacion");
 		lblProgramacin.setHorizontalAlignment(SwingConstants.CENTER);
 		lblProgramacin.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblProgramacin.setBounds(600, 130, 155, 20);
@@ -246,10 +246,10 @@ public class VentanaInicial extends JFrame  {
 		contentPane.add(rdbtnAlto_2);
 				
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"13.0", "13.5", "14.0", "14.5", "15.0", "15.5", "16.0"}));
-		comboBox.setBounds(135, 394, 146, 26);
-		contentPane.add(comboBox);
+		JComboBox<Double> tamanio = new JComboBox<Double>();
+		tamanio.setModel(new DefaultComboBoxModel<Double>(new Double[] {13.0, 13.5, 14.0, 14.5, 15.0, 15.5, 16.0}));
+		tamanio.setBounds(135, 394, 146, 26);
+		contentPane.add(tamanio);
 		
 		JLabel lblHs = new JLabel("hs");
 		lblHs.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -272,10 +272,10 @@ public class VentanaInicial extends JFrame  {
 		rdbtnUsb.setBounds(381, 334, 69, 29);
 		contentPane.add(rdbtnUsb);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"0", "1", "2", "3", "4", "5"}));
-		comboBox_1.setBounds(456, 334, 50, 26);
-		contentPane.add(comboBox_1);
+		JComboBox<Integer> cantUsb = new JComboBox<Integer>();
+		cantUsb.setModel(new DefaultComboBoxModel<Integer>(new Integer[] {0,1,2,3,4,5}));
+		cantUsb.setBounds(456, 334, 50, 26);
+		contentPane.add(cantUsb);
 		
 		JRadioButton rdbtnBluethoot = new JRadioButton("Bluethoot");
 		rdbtnBluethoot.setBounds(381, 394, 105, 29);
@@ -299,8 +299,24 @@ public class VentanaInicial extends JFrame  {
 				//VER FILTROS DE LOS USOS DEPENDE DE LO QUE INVESTIGUEMOS DE LOS PROGRAMAS
 				
 				controlador.setFiltros(filtros);
-				//VER DE PASARLE CADA DATO INGRESADO AL CONTROLADOR
-				//List<Object> datos = new ArrayList<>();
+				
+				//PARA PASARLE CADA DATO INGRESADO AL CONTROLADOR
+				List<Object> datos = new ArrayList<>();
+				datos.add(sliderVelocidad.getValue());
+				datos.add(sliderPeso.getValue());
+				datos.add(sliderCapacidad.getValue());
+				datos.add(Double.valueOf(textFieldAutonomia.getText()));
+				datos.add(tamanio.getSelectedItem());
+				//VER COMO HACER LO DE LA CONECTIVIDAD CON SUBCRITERIOS, LOS PONGO EN LA LISTA
+				datos.add(rdbtnWifi.isSelected());
+				datos.add(rdbtnHdmi.isSelected());
+				datos.add(rdbtnCddvd.isSelected());
+				datos.add(rdbtnUsb.isSelected());
+				datos.add(cantUsb.getSelectedItem());
+				datos.add(rdbtnBluethoot.isSelected());
+				controlador.setDatos(datos);
+				
+				
 				
 				
 				VentanaComparaciones vc = new VentanaComparaciones(controlador);

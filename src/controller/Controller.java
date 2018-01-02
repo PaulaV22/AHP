@@ -16,13 +16,26 @@ public class Controller {
 	private Decisor decisor;
 	private List<Filtro> filtros;
 	private List<Double> comparacionPareada;
+	private List<Object> datosIngresados;
+	
 	
 	public Controller(){
 		bd = new BaseDatos();
+		filtros = new ArrayList<>();
+		comparacionPareada = new ArrayList<>();
+		datosIngresados = new ArrayList<>();
 	}
 	
 	public void setFiltros(List<Filtro> filtros){
 		this.filtros = filtros;
+	}
+	
+	public void setDatos(List<Object> datos){
+		datosIngresados=datos;
+	}
+	
+	public List<Object> getDatos(){
+		return datosIngresados;
 	}
 	
 	public void setComparacionPareada(List<Double> puntajes){
