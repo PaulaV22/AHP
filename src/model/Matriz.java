@@ -85,29 +85,59 @@ public class Matriz {
 		return salida;
 	}
 	
-	public void addFila(Vector<Double>vect){
-		double[][] nueva = new double[maxFilas+1][maxColumnas];
+	public void addFila(Vector<Double>vect){ //Este metodo tenia el mismo problema que addColumna 
+		double[][] nueva = new double[maxFilas+1][vect.size()];
 		for (int f=0; f<maxFilas; f++)
 			for (int c=0; c<maxColumnas; c++){
 				nueva[f][c] = matriz[f][c];
 			}
-		for (int c=0; c<maxColumnas; c++){
-			nueva[maxFilas+1][c]=vect.get(c);
+		
+		for (int c=0; c<vect.size(); c++){
+			nueva[maxFilas][c]=vect.get(c);//Uso el maxFilas porque es la nueva columna. Despues le sumo para que refleje la cant de filas
 		}
+		this.maxFilas++;
+		if(this.maxColumnas==0)
+			this.maxColumnas=vect.size();
 		matriz = nueva;
 	}
 	
-	public void addColumna(Vector<Double>vect){
-		double[][] nueva = new double[maxFilas][maxColumnas+1];
+	public void addColumna(Vector<Double>vect){ //Agrega una columna a la matriz. Puede tener problemas si agregamos una columna con
+												// un largo inapropiado. (El vector tiene que tener el mismo size que la matriz excepto
+												// cuando la matriz es inicializada como new matriz(0,0,null);
+		double[][] nueva = new double[vect.size()][maxColumnas+1];
 		for (int f=0; f<maxFilas; f++)
 			for (int c=0; c<maxColumnas; c++){
 				nueva[f][c] = matriz[f][c];
 			}
-		for (int f=0; f<maxFilas; f++){
-			nueva[f][maxColumnas+1]=vect.get(f);
+		for (int f=0; f<vect.size(); f++){
+			nueva[f][maxColumnas]=vect.get(f);
 		}
+		this.maxColumnas++;
+		if(this.maxFilas==0)
+			this.maxFilas=vect.size();
 		matriz = nueva;
 	}
-	
+	public String toString(){ //PARA MOSTRAR LA MATRIZ
+		String text="[";
+		for(int i=0;i<this.maxFilas;i++){
+			for(int j=0;j<this.maxColumnas;j++){
+				text=text+this.matriz[i][j];
+				if(j+1!=this.maxColumnas)
+					text=text+",";
+			}
+		if(i+1!=this.maxFilas)
+			text=text+"\n";
+		}
+			text=text+"]";
+		return text;
+	}
+
+	public Matriz clone(Matriz mat){
+		Matriz matrizNueva = new Matriz(mat.maxFilas,mat.maxColumnas,null);
+		for(int i=0;i<matrizNueva.maxFilas;i++)
+			for(int j=0;j<matrizNueva.maxColumnas;j++)
+				matrizNueva.set(i, j,mat.get(i, j));
+		return matrizNueva;
+	}
 	
 }
