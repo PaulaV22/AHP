@@ -311,8 +311,12 @@ public class VentanaInicial extends JFrame  {
 				datos.add(rdbtnWifi.isSelected());
 				datos.add(rdbtnHdmi.isSelected());
 				datos.add(rdbtnCddvd.isSelected());
-				datos.add(rdbtnUsb.isSelected());
-				datos.add(cantUsb.getSelectedItem());
+				if (rdbtnUsb.isSelected())
+					datos.add(cantUsb.getSelectedItem());
+				else datos.add(0);
+				
+				
+				
 				datos.add(rdbtnBluethoot.isSelected());
 				controlador.setDatos(datos);
 				

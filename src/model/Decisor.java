@@ -6,8 +6,8 @@ import java.util.Vector;
 public class Decisor {
 	private List<Matriz> matrices; //la primera matriz es la de comparacion de criterios
 	private List<Matriz> normalizadas;
-	private List<String> alternativas;
-	
+	private List<String> alternativas; //lista con los modelos que cumplen los filtros
+	private int cantCriterios;
 	public Decisor (List<Pc> alternativas){
 		this.matrices = new ArrayList<>();
 		this.normalizadas = new ArrayList<>();
@@ -15,6 +15,7 @@ public class Decisor {
 		for (Pc pc:alternativas){
 			this.alternativas.add((String) pc.get("modelo"));
 		}; 
+		cantCriterios = 5;
 	}
 
 	
@@ -24,6 +25,33 @@ public class Decisor {
 	
 	public void addNormalizada (Matriz m){
 		normalizadas.add(m);
+	}
+	
+	private void complementar (Matriz m){
+		for (int f = 1; f<m.filas(); f++){
+			for (int c=0; c<f; c++){
+				m.set(f, c, m.get(c, f));
+			}
+		}
+	}
+	
+	public void armarMatrizComparaciones(List<Double> comparacionPareada){
+		Matriz matrizCriterios = new Matriz (cantCriterios,cantCriterios, null);
+		for (int f = 0; f<cantCriterios; f++){
+			int c = f;
+			matrizCriterios.set(f, c, 1.0);
+			for (c = f+1; c<cantCriterios; c++){
+				matrizCriterios.set(f, c, comparacionPareada.remove(0));
+			}
+		}
+		this.complementar(matrizCriterios);
+		matrices.add(matrizCriterios);
+	}
+	
+	public void armarMatricesPuntajes(List<Object> datos){
+		for (int i=0; i<datos.size(); i++){
+			
+		}
 	}
 	
 	private Matriz generarMatriz(List<Vector<Double>> vectores){
@@ -49,6 +77,7 @@ public class Decisor {
 		}
 		return salida;
 	}
+	
 	
 	public Vector<Score> calcular(){
 		List<Vector<Double>> vectores = new ArrayList<>();

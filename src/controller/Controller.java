@@ -53,6 +53,8 @@ public class Controller {
 			}
 		}
 		decisor = new Decisor(filtradas);
+		decisor.armarMatrizComparaciones(comparacionPareada);
+		decisor.armarMatricesPuntajes(datosIngresados);
 		Vector<Score> resultados = decisor.calcular();
 		VentanaResultados vr= new VentanaResultados();
 		vr.mostrarResultados(resultados);

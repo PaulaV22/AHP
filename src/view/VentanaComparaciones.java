@@ -316,7 +316,7 @@ public class VentanaComparaciones extends JFrame {
 		contentPane.add(slider_8);
 		sliders.add(slider_8);
 		
-		JLabel lblPantallaVsAutonomia = new JLabel("Pulgadas de pantalla vs Autonomia");
+		JLabel lblPantallaVsAutonomia = new JLabel("Autonomia vs Conectividad");
 		lblPantallaVsAutonomia.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
 		lblPantallaVsAutonomia.setHorizontalAlignment(SwingConstants.LEFT);
 		lblPantallaVsAutonomia.setBounds(400, 50, 396, 20);
@@ -329,12 +329,12 @@ public class VentanaComparaciones extends JFrame {
 				String texto;
 				int valor=slider_9.getValue();
 				if((valor<=1)&&(valor>=-1))
-					texto="Las pulgadas de la pantalla y la autonomia son igual de importantes";
+					texto="La autonomia y la conectividad son igual de importantes";
 				else{
 					if(valor>1)
-						texto="Las pulgadas de la pantalla son "+valor+" veces mas importantes que la autonomia";
+						texto="La autonomia es "+valor+" veces mas importantes que la conectividad";
 					else
-						texto="La autonomia es "+valor*-1+" veces mas importante que las pulgadas de la pantalla";
+						texto="La conectividad es "+valor*-1+" veces mas importante que la autonomia";
 				}
 				lblPantallaVsAutonomia.setText(texto);
 			}
@@ -346,7 +346,7 @@ public class VentanaComparaciones extends JFrame {
 		contentPane.add(slider_9);
 		sliders.add(slider_9);
 		
-		JLabel lblPantallaVsConectividad = new JLabel("Pulgadas de pantalla vs Conectividad");
+		JLabel lblPantallaVsConectividad = new JLabel("Autonomia vs Peso");
 		lblPantallaVsConectividad.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
 		lblPantallaVsConectividad.setHorizontalAlignment(SwingConstants.LEFT);
 		lblPantallaVsConectividad.setBounds(400, 100, 396, 20);
@@ -359,12 +359,12 @@ public class VentanaComparaciones extends JFrame {
 				String texto;
 				int valor=slider_10.getValue();
 				if((valor<=1)&&(valor>=-1))
-					texto="Las pulgadas de la pantalla y la conectividad son igual de importantes";
+					texto="La autonomia y el peso son igual de importantes";
 				else{
 					if(valor>1)
-						texto= "Las pulgadas de la pantalla son "+valor+" veces mas importantes que la conectividad";
+						texto="La autonomia es "+valor+" veces mas importantes que el peso";
 					else
-						texto="La conectividad es "+valor*-1+" veces mas importante que las pulgadas de la pantalla";
+						texto="El peso es "+valor*-1+" veces mas importante que la autonomia";
 				}
 				lblPantallaVsConectividad.setText(texto);
 			}
@@ -376,7 +376,7 @@ public class VentanaComparaciones extends JFrame {
 		contentPane.add(slider_10);
 		sliders.add(slider_10);
 		
-		JLabel lblPantallaVsPeso = new JLabel("Pulgadas de pantalla vs Peso");
+		JLabel lblPantallaVsPeso = new JLabel("Autonomia vs Pulgadas de la pantalla");
 		lblPantallaVsPeso.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
 		lblPantallaVsPeso.setHorizontalAlignment(SwingConstants.LEFT);
 		lblPantallaVsPeso.setBounds(400, 150, 396, 20);
@@ -389,12 +389,12 @@ public class VentanaComparaciones extends JFrame {
 				String texto;
 				int valor=slider_11.getValue();
 				if((valor<=1)&&(valor>=-1))
-					texto="Las pulgadas de la pantalla y el peso son igual de importantes";
+					texto="La autonomia y las pulgadas de la pantalla son igual de importantes";
 				else{
 					if(valor>1)
-						texto="Las pulgadas de la pantalla son "+valor+" veces mas importantes que el peso";
+						texto="La autonomia es "+valor+" veces mas importante que las pulgadas de la pantalla";
 					else
-						texto="El peso es "+valor*-1+" veces mas importante que las pulgadas de la pantalla";
+						texto="Las pulgadas de la pantalla son "+valor*-1+" veces mas importante que la autonomia";
 				}
 				lblPantallaVsPeso.setText(texto);
 			}
@@ -406,7 +406,7 @@ public class VentanaComparaciones extends JFrame {
 		contentPane.add(slider_11);
 		sliders.add(slider_11);
 		
-		JLabel lblAutonomaVsConectividad = new JLabel("Autonomia vs Conectividad");
+		JLabel lblAutonomaVsConectividad = new JLabel("Conectividad vs Peso");
 		lblAutonomaVsConectividad.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
 		lblAutonomaVsConectividad.setHorizontalAlignment(SwingConstants.LEFT);
 		lblAutonomaVsConectividad.setBounds(400, 200, 350, 20);
@@ -419,12 +419,12 @@ public class VentanaComparaciones extends JFrame {
 				String texto;
 				int valor=slider_12.getValue();
 				if((valor<=1)&&(valor>=-1))
-					texto="La autonomia y la conectividad son igual de importantes";
+					texto="La conectividad y el peso son igual de importantes";
 				else{
 					if(valor>1)
-						texto="La autonomia es "+valor+" veces mas importante que la conectividad";
+						texto="La conectividad es "+valor+" veces mas importante que el peso";
 					else
-						texto="La conectividad es "+valor*-1+" veces mas importante que la autonomia";
+						texto="El peso es "+valor*-1+" veces mas importante que la conectividad";
 				}
 				lblAutonomaVsConectividad.setText(texto);
 			}
@@ -437,7 +437,7 @@ public class VentanaComparaciones extends JFrame {
 		sliders.add(slider_12);
 
 		
-		JLabel lblAutonomaVsPeso = new JLabel("Autonomia vs Peso");
+		JLabel lblAutonomaVsPeso = new JLabel("Conectividad vs Pulgadas de la pantalla");
 		lblAutonomaVsPeso.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
 		lblAutonomaVsPeso.setHorizontalAlignment(SwingConstants.LEFT);
 		lblAutonomaVsPeso.setBounds(400, 250, 350, 20);
@@ -450,12 +450,12 @@ public class VentanaComparaciones extends JFrame {
 				String texto;
 				int valor=slider_13.getValue();
 				if((valor<=1)&&(valor>=-1))
-					texto="La autonomia y el peso son igual de importantes";
+					texto="La conectividad y las pulgadas de la pantalla son igual de importantes";
 				else{
 					if(valor>1)
-						texto="La autonomia es "+valor+" veces mas importante que el peso";
+						texto="La conectividad es "+valor+" veces mas importante que las pulgadas de la pantalla";
 					else
-						texto="El peso es "+valor*-1+" veces mas importante que la autonomia";
+						texto="Las pulgadas de la pantalla son "+valor*-1+" veces mas importante que la conectividad";
 				}
 				lblAutonomaVsPeso.setText(texto);
 			}
@@ -467,7 +467,7 @@ public class VentanaComparaciones extends JFrame {
 		contentPane.add(slider_13);
 		sliders.add(slider_13);
 		
-		JLabel lblConectividadVsPeso = new JLabel("Conectividad vs Peso");
+		JLabel lblConectividadVsPeso = new JLabel("Peso vs Pulgadas de la pantalla");
 		lblConectividadVsPeso.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
 		lblConectividadVsPeso.setHorizontalAlignment(SwingConstants.LEFT);
 		lblConectividadVsPeso.setBounds(400, 300, 350, 20);
@@ -480,12 +480,12 @@ public class VentanaComparaciones extends JFrame {
 				String texto;
 				int valor=slider_14.getValue();
 				if((valor<=1)&&(valor>=-1))
-					texto="La conectividad y el peso son igual de importantes";
+					texto="El peso y las pulgadas de la pantalla son igual de importantes";
 				else{
 					if(valor>1)
-						texto="La conectividad es "+valor+" veces mas importante que el peso";
+						texto="El peso es "+valor+" veces mas importante que las pulgadas de la pantalla";
 					else
-						texto="El peso es "+valor*-1+" veces mas importante que la conectividad";
+						texto="Las pulgadas de la pantalla son "+valor*-1+" veces mas importante que el peso";
 				}
 				lblConectividadVsPeso.setText(texto);
 			}
