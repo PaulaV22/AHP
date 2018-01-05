@@ -60,6 +60,8 @@ public class Decisor {
 			salida.addColumna(vectores.get(i));
 
 		}
+		System.out.println(vectores);
+		System.out.println("aca");
 		System.out.println(salida+"\n"+vectores.get(vectores.size()-1));
 		salida.addFila(vectores.get(vectores.size()-1));
 		return salida;
@@ -93,8 +95,6 @@ public class Decisor {
 			Vector<Double> aux = vectores.remove(0); //pone al final el vector de los criterios para
 			vectores.add(aux);				// que quede al final en la matriz de scores globales
 		}
-		Vector<Double> aux = vectores.remove(0); //pone al final el vector de los criterios para
-		vectores.add(aux);				// que quede al final en la matriz de scores globales
 		
 		Matriz scores = this.generarMatriz(vectores);
 		Vector<Score> salida = this.getScores(scores);
