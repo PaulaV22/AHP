@@ -323,8 +323,16 @@ public class VentanaInicial extends JFrame  {
 				
 				
 				
-				VentanaComparaciones vc = new VentanaComparaciones(controlador);
+				List<String> criterios = new ArrayList<>();
+				criterios.add("precio");
+				criterios.add("velocidad");
+				criterios.add("capacidad");
+				criterios.add("conectividad");
+				criterios.add("Pantalla");
+				VentanaComparaciones vc = new VentanaComparaciones(controlador, criterios);
 				vc.show();
+				
+			
 			}
 			
 		});
@@ -332,6 +340,7 @@ public class VentanaInicial extends JFrame  {
 		
 		btnBuscar.setBounds(621, 451, 115, 29);
 		contentPane.add(btnBuscar);
+		
 		
 		
 	}
