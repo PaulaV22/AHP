@@ -54,8 +54,7 @@ public class Decisor {
 			salida.addColumna(vectores.get(i));
 
 		}
-		System.out.println(vectores);
-		System.out.println("aca");
+
 		System.out.println(salida+"\n"+vectores.get(vectores.size()-1));
 		salida.addFila(vectores.get(vectores.size()-1));
 		return salida;
@@ -155,6 +154,10 @@ public class Decisor {
 		for(int i=0;i<2;i++)
 			for(int j=0;j<2;j++)
 				matrizC3.set(i, j, 1.0);
+		matrizC3.set(0, 0, 1.0);
+		matrizC3.set(0, 1, 2.0);
+		matrizC3.set(1, 0, 0.5);
+		matrizC3.set(1, 1, 1.0);
 		Decisor d2=new Decisor(alternativas);
 		d2.addMatriz(matrizC3);
 		d2.addMatriz(matrizC);
