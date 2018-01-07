@@ -328,7 +328,7 @@ public class VentanaInicial extends JFrame  {
 				criterios.add("velocidad");
 				criterios.add("capacidad");
 				criterios.add("conectividad");
-				criterios.add("Pantalla");
+				criterios.add("pantalla");
 				VentanaComparaciones vc = new VentanaComparaciones(controlador, criterios);
 				vc.show();
 				
