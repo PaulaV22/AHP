@@ -4,13 +4,11 @@ import java.util.List;
 import java.util.Vector;
 
 public class Decisor {
-	private List<Matriz> matrices; //la primera matriz es la de comparacion de criterios
-	private List<Matriz> normalizadas;
+	private List<MatrizI> matrices; //la primera matriz es la de comparacion de criterios
 	private List<String> alternativas; //lista con los modelos que cumplen los filtros
 	private int cantCriterios;
 	public Decisor (List<Pc> alternativas){
 		this.matrices = new ArrayList<>();
-		this.normalizadas = new ArrayList<>();
 		this.alternativas = new ArrayList<>();
 		for (Pc pc:alternativas){
 			this.alternativas.add((String) pc.get("modelo"));
@@ -19,12 +17,8 @@ public class Decisor {
 	}
 
 	
-	public void addMatriz(Matriz m){
+	public void addMatriz(MatrizI m){
 		matrices.add(m);
-	}
-	
-	public void addNormalizada (Matriz m){
-		normalizadas.add(m);
 	}
 	
 	private void complementar (Matriz m){
@@ -60,6 +54,7 @@ public class Decisor {
 			salida.addColumna(vectores.get(i));
 
 		}
+
 		System.out.println(salida+"\n"+vectores.get(vectores.size()-1));
 		salida.addFila(vectores.get(vectores.size()-1));
 		return salida;
@@ -81,11 +76,7 @@ public class Decisor {
 	
 	public Vector<Score> calcular(){
 		List<Vector<Double>> vectores = new ArrayList<>();
-		for (Matriz m: matrices){
-			Matriz normal = m.getMatrizNormal();
-			this.addNormalizada(normal);
-		}
-		for (Matriz m: normalizadas){
+		for (MatrizI m: matrices){
 			Vector <Double> v = m.getVector();
 			vectores.add(v);
 		}
@@ -93,12 +84,16 @@ public class Decisor {
 			Vector<Double> aux = vectores.remove(0); //pone al final el vector de los criterios para
 			vectores.add(aux);				// que quede al final en la matriz de scores globales
 		}
+<<<<<<< HEAD
 		/*Esto lo borre desde el chrome, no pude hacer el commit si no anda volver a ponerlo, Igual hay algo mal con esto
 		Es el mismo codigo de adentro del if y no tiene nada que hacer ahi lo unico que hace es crashear porque mete una
 		fila donde no va
 		->Vector<Double> aux = vectores.remove(0); //pone al final el vector de los criterios para
 		->vectores.add(aux);				// que quede al final en la matriz de scores globales
 		*/
+=======
+		
+>>>>>>> Composite
 		Matriz scores = this.generarMatriz(vectores);
 		Vector<Score> salida = this.getScores(scores);
 		salida.sort(new ComparadorScores());
@@ -164,8 +159,21 @@ public class Decisor {
 		for(int i=0;i<8;i++)
 			for(int j=0;j<8;j++)
 				matrizC2.set(i, j, 1.0);
+		Matriz matrizC3=new Matriz(2,2,null);
+		for(int i=0;i<2;i++)
+			for(int j=0;j<2;j++)
+				matrizC3.set(i, j, 1.0);
+		matrizC3.set(0, 0, 1.0);
+		matrizC3.set(0, 1, 2.0);
+		matrizC3.set(1, 0, 0.5);
+		matrizC3.set(1, 1, 1.0);
+		Decisor d2=new Decisor(alternativas);
+		d2.addMatriz(matrizC3);
+		d2.addMatriz(matrizC);
+		d2.addMatriz(matrizC);
+		MatrizComp matComp=new MatrizComp(d2);
 		d.addMatriz(matrizC2);
-		d.addMatriz(matrizC);
+		d.addMatriz(matComp);
 		d.addMatriz(matrizC);
 		d.addMatriz(matrizC);
 		d.addMatriz(matrizC);

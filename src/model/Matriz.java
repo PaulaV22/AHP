@@ -2,7 +2,7 @@ package model;
 import java.util.List;
 import java.util.Vector;
 
-public class Matriz {
+public class Matriz implements MatrizI{
 	protected int maxFilas;
 	protected int maxColumnas;
 	protected double[][] matriz;
@@ -68,16 +68,17 @@ public class Matriz {
 		}
 		return salida;
 	}
-	public Matriz getMatrizNormal(){
-		Matriz salida = new Matriz(maxFilas, maxColumnas, opciones);
+	private void Normalizar(){
+		double[][] salida=new double[this.maxFilas][this.maxColumnas];
 		for (int f=0; f<maxFilas; f++)
 			for (int c=0; c<maxColumnas; c++){
-				salida.set(f, c, this.get(f, c)/this.sumaColumna(c));
+				salida[f][c]= this.get(f, c)/this.sumaColumna(c);
 			}
-		return salida;
+		matriz=salida;
 	}
 	
 	public Vector<Double> getVector(){
+		this.Normalizar();
 		Vector<Double> salida = new Vector<>();
 		for (int f=0; f<maxFilas; f++){
 			salida.add(this.getPromedioFila(f));
