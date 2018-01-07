@@ -84,16 +84,14 @@ public class Decisor {
 			Vector<Double> aux = vectores.remove(0); //pone al final el vector de los criterios para
 			vectores.add(aux);				// que quede al final en la matriz de scores globales
 		}
-<<<<<<< HEAD
+
 		/*Esto lo borre desde el chrome, no pude hacer el commit si no anda volver a ponerlo, Igual hay algo mal con esto
 		Es el mismo codigo de adentro del if y no tiene nada que hacer ahi lo unico que hace es crashear porque mete una
 		fila donde no va
 		->Vector<Double> aux = vectores.remove(0); //pone al final el vector de los criterios para
 		->vectores.add(aux);				// que quede al final en la matriz de scores globales
 		*/
-=======
-		
->>>>>>> Composite
+
 		Matriz scores = this.generarMatriz(vectores);
 		Vector<Score> salida = this.getScores(scores);
 		salida.sort(new ComparadorScores());
