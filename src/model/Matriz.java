@@ -68,7 +68,7 @@ public class Matriz implements MatrizI{
 		}
 		return salida;
 	}
-	private void Normalizar(){
+	private void Normalizar(){ // Normaliza la matriz modificandola permanentemente
 		double[][] salida=new double[this.maxFilas][this.maxColumnas];
 		for (int f=0; f<maxFilas; f++)
 			for (int c=0; c<maxColumnas; c++){
@@ -77,7 +77,7 @@ public class Matriz implements MatrizI{
 		matriz=salida;
 	}
 	
-	public Vector<Double> getVector(){
+	public Vector<Double> getVector(){ // Devuelve el promedio de cada fila en un vector
 		this.Normalizar();
 		Vector<Double> salida = new Vector<>();
 		for (int f=0; f<maxFilas; f++){
@@ -86,7 +86,7 @@ public class Matriz implements MatrizI{
 		return salida;
 	}
 	
-	public void addFila(Vector<Double>vect){ //Este metodo tenia el mismo problema que addColumna 
+	public void addFila(Vector<Double>vect){ 
 		double[][] nueva = new double[maxFilas+1][vect.size()];
 		for (int f=0; f<maxFilas; f++)
 			for (int c=0; c<maxColumnas; c++){
@@ -94,7 +94,7 @@ public class Matriz implements MatrizI{
 			}
 		
 		for (int c=0; c<vect.size(); c++){
-			nueva[maxFilas][c]=vect.get(c);//Uso el maxFilas porque es la nueva columna. Despues le sumo para que refleje la cant de filas
+			nueva[maxFilas][c]=vect.get(c);
 		}
 		this.maxFilas++;
 		if(this.maxColumnas==0)
