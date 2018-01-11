@@ -48,7 +48,7 @@ public class VentanaInicial extends JFrame  {
 	private JTextField textFieldPrecioMax;
 	private JTextField textFieldAutonomia;
 	private static Controller controlador;
-	
+	private List<String> criterios;
 	/**
 	 * Launch the application.
 	 */
@@ -78,6 +78,8 @@ public class VentanaInicial extends JFrame  {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		criterios = new ArrayList<>();
+		
 		
 		JLabel lblquAndsBuscando = new JLabel("\u00BFQu\u00E9 est\u00E1s buscando?");
 		lblquAndsBuscando.setHorizontalAlignment(SwingConstants.CENTER);
@@ -85,10 +87,11 @@ public class VentanaInicial extends JFrame  {
 		lblquAndsBuscando.setBounds(15, 16, 795, 29);
 		contentPane.add(lblquAndsBuscando);
 		
-		JLabel lblPrecioMaximo = new JLabel("Precio m\u00E1ximo");
-		lblPrecioMaximo.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblPrecioMaximo.setBounds(15, 94, 155, 24);
-		contentPane.add(lblPrecioMaximo);
+		JLabel lblprecio = new JLabel("Precio");
+		lblprecio.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblprecio.setBounds(15, 94, 155, 24);
+		contentPane.add(lblprecio);
+		criterios.add(lblprecio.getText().toLowerCase());
 		
 		textFieldPrecioMax = new JTextField();		
 		textFieldPrecioMax.setText("0.0");
@@ -96,40 +99,43 @@ public class VentanaInicial extends JFrame  {
 		contentPane.add(textFieldPrecioMax);
 		textFieldPrecioMax.setColumns(10);
 		
-		JLabel lblNewLabel = new JLabel("Marca");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel.setBounds(50, 156, 69, 20);
-		contentPane.add(lblNewLabel);
+		JLabel lblMarca = new JLabel("Marca");
+		lblMarca.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblMarca.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblMarca.setBounds(50, 156, 69, 20);
+		contentPane.add(lblMarca);
 		
 		JComboBox listMarcas = new JComboBox();
 		listMarcas.setModel(new DefaultComboBoxModel(new String[] {"No se", "Acer", "Compaq", "Dell", "HP", "Lenovo", "Mac", "Samsung", "Vaio"}));
 		listMarcas.setBounds(135, 154, 146, 26);
 		contentPane.add(listMarcas);
 		
-		JLabel lblNewLabel_1 = new JLabel("Usos");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(611, 94, 125, 20);
-		contentPane.add(lblNewLabel_1);
+		JLabel lblUsos = new JLabel("Usos");
+		lblUsos.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblUsos.setHorizontalAlignment(SwingConstants.CENTER);
+		lblUsos.setBounds(611, 94, 125, 20);
+		contentPane.add(lblUsos);
 		
 		JLabel lblPantalla = new JLabel("Pantalla");
 		lblPantalla.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblPantalla.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPantalla.setBounds(50, 394, 69, 20);
 		contentPane.add(lblPantalla);
+		criterios.add(lblPantalla.getText().toLowerCase());
 		
-		JLabel lblAutonomahs = new JLabel("Autonom\u00EDa");
-		lblAutonomahs.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblAutonomahs.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblAutonomahs.setBounds(24, 454, 95, 20);
-		contentPane.add(lblAutonomahs);
+		JLabel lblAutonomia = new JLabel("Autonomia");
+		lblAutonomia.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblAutonomia.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblAutonomia.setBounds(24, 454, 95, 20);
+		contentPane.add(lblAutonomia);
+		criterios.add(lblAutonomia.getText().toLowerCase());
 		
 		textFieldAutonomia = new JTextField();
 		textFieldAutonomia.setText("0.0");
 		textFieldAutonomia.setBounds(135, 452, 73, 26);
 		contentPane.add(textFieldAutonomia);
 		textFieldAutonomia.setColumns(10);
+		
 		
 		JLabel lblNewLabel_2 = new JLabel("Conectividad");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -142,6 +148,7 @@ public class VentanaInicial extends JFrame  {
 		lblVelocidad.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblVelocidad.setBounds(24, 214, 95, 20);
 		contentPane.add(lblVelocidad);
+		criterios.add(lblVelocidad.getText().toLowerCase());
 		
 		JSlider sliderVelocidad = new JSlider();
 		sliderVelocidad.setValue(0);
@@ -154,6 +161,7 @@ public class VentanaInicial extends JFrame  {
 		lblPeso.setVerticalAlignment(SwingConstants.BOTTOM);
 		lblPeso.setBounds(50, 274, 69, 20);
 		contentPane.add(lblPeso);
+		criterios.add(lblPeso.getText().toLowerCase());
 		
 		JSlider sliderPeso = new JSlider();
 		sliderPeso.setValue(0);
@@ -165,6 +173,8 @@ public class VentanaInicial extends JFrame  {
 		lblCapacidad.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblCapacidad.setBounds(14, 334, 105, 20);
 		contentPane.add(lblCapacidad);
+		criterios.add(lblCapacidad.getText().toLowerCase());
+		
 		
 		JSlider sliderCapacidad = new JSlider();
 		sliderCapacidad.setMaximum(1000000);
@@ -259,18 +269,22 @@ public class VentanaInicial extends JFrame  {
 		JRadioButton rdbtnWifi = new JRadioButton("WiFi");
 		rdbtnWifi.setBounds(381, 154, 155, 29);
 		contentPane.add(rdbtnWifi);
+		criterios.add(rdbtnWifi.getText().toLowerCase());
 		
 		JRadioButton rdbtnHdmi = new JRadioButton("HDMI");
 		rdbtnHdmi.setBounds(381, 214, 83, 29);
 		contentPane.add(rdbtnHdmi);
+		criterios.add(rdbtnHdmi.getText().toLowerCase());
 		
 		JRadioButton rdbtnCddvd = new JRadioButton("CD/DVD");
 		rdbtnCddvd.setBounds(381, 274, 95, 29);
 		contentPane.add(rdbtnCddvd);
+		criterios.add(rdbtnCddvd.getText().toLowerCase());
 		
 		JRadioButton rdbtnUsb = new JRadioButton("USB");
 		rdbtnUsb.setBounds(381, 334, 69, 29);
 		contentPane.add(rdbtnUsb);
+		criterios.add(rdbtnUsb.getText().toLowerCase());
 		
 		JComboBox<Integer> cantUsb = new JComboBox<Integer>();
 		cantUsb.setModel(new DefaultComboBoxModel<Integer>(new Integer[] {0,1,2,3,4,5}));
@@ -280,6 +294,8 @@ public class VentanaInicial extends JFrame  {
 		JRadioButton rdbtnBluethoot = new JRadioButton("Bluethoot");
 		rdbtnBluethoot.setBounds(381, 394, 105, 29);
 		contentPane.add(rdbtnBluethoot);
+		criterios.add(rdbtnBluethoot.getText().toLowerCase());
+		
 		
 		JButton btnBuscar = new JButton("Siguiente");
 		btnBuscar.addMouseListener(new MouseAdapter() {

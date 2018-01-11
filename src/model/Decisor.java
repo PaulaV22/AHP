@@ -1,49 +1,72 @@
 package model;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Vector;
 
 public class Decisor {
 	private List<MatrizI> matrices; //la primera matriz es la de comparacion de criterios
-	private List<String> alternativas; //lista con los modelos que cumplen los filtros
-	private int cantCriterios;
-	public Decisor (List<Pc> alternativas){
+	private List<Pc> alternativas; //lista con los modelos que cumplen los filtros
+	private List<String> criterios;
+	private Escala escala;
+	
+	
+	
+	
+	public Decisor (List<Pc> alternativas ){
 		this.matrices = new ArrayList<>();
-		this.alternativas = new ArrayList<>();
-		for (Pc pc:alternativas){
-			this.alternativas.add((String) pc.get("modelo"));
-		}; 
-		cantCriterios = 5;
+		this.alternativas = alternativas;
+		escala = new Escala();
 	}
 
+	public void setCriterios (List<String> criterios){
+		this.criterios = criterios;
+	}
 	
 	public void addMatriz(MatrizI m){
 		matrices.add(m);
 	}
-	
-	private void complementar (Matriz m){
-		for (int f = 1; f<m.filas(); f++){
-			for (int c=0; c<f; c++){
-				m.set(f, c, m.get(c, f));
-			}
-		}
-	}
+
 	
 	public void armarMatrizComparaciones(List<Double> comparacionPareada){
-		Matriz matrizCriterios = new Matriz (cantCriterios,cantCriterios, null);
-		for (int f = 0; f<cantCriterios; f++){
+		Matriz matrizCriterios = new Matriz (criterios.size(),criterios.size(), null);
+		for (int f = 0; f<criterios.size(); f++){
 			int c = f;
 			matrizCriterios.set(f, c, 1.0);
-			for (c = f+1; c<cantCriterios; c++){
+			for (c = f+1; c<criterios.size(); c++){
 				matrizCriterios.set(f, c, comparacionPareada.remove(0));
 			}
 		}
-		this.complementar(matrizCriterios);
+		matrizCriterios.complementar();
 		matrices.add(matrizCriterios);
 	}
 	
 	public void armarMatricesPuntajes(List<Object> datos){
-		for (int i=0; i<datos.size(); i++){
+		for (int i=0; i<criterios.size(); i++){
+			String atributo = criterios.get(i);
+			Matriz m = new Matriz (alternativas.size(), alternativas.size(), null);
+			//COMPARAR CADA PC RESPECTO A OTRA POR EL DATO PASADO Y DESPUES COMPLEMENTAR
+			for (int j=0; j<alternativas.size(); j++){
+				for (int k=j; k<alternativas.size(); j++){
+					Double v1 = (Double) alternativas.get(j).get(atributo);
+					Double v2 = (Double) alternativas.get(k).get(atributo);
+					Double valorBuscado = (Double) datos.get(i);
+					Double dif1= Math.abs(valorBuscado - v1); //DIVIDIRLO POR EL MAX NUM EN ESE ATRIBUTO.
+					Double dif2= Math.abs(valorBuscado - v2); //DIVIDIRLO POR EL MAX NUM EN ESE ATRIBUTO.
+					Double valorFinal1;
+					Double valorFinal2;
+					if (dif1<=dif2){
+						valorFinal1=escala.get(dif2-dif1);
+						valorFinal2= (1/valorFinal1);
+					}
+					else {
+						valorFinal2=escala.get(dif1-dif2);
+						valorFinal1= (1/valorFinal2);
+					}
+					m.set(j, k, valorFinal1);
+					m.set(k, j, valorFinal2);
+				}
+			}
 			
 		}
 	}
@@ -63,7 +86,7 @@ public class Decisor {
 	private Vector<Score> getScores(Matriz m){
 		Vector <Score> salida = new Vector<>();
 		for (int f=0; f<m.filas()-1; f++){
-			Score nuevo = new Score (alternativas.get(f), 0.0);
+			Score nuevo = new Score ((String)alternativas.get(f).get("modelo"), 0.0);
 			for (int c=0; c<m.columnas(); c++){
 				double s = nuevo.getScore()+m.get(f, c)*m.get(m.filas()-1, c); //multiplica cada casillero de la fila por cada casillero de la ultima fila
 				nuevo.setScore(s);
@@ -85,13 +108,7 @@ public class Decisor {
 			vectores.add(aux);				// que quede al final en la matriz de scores globales
 		}
 
-		/*Esto lo borre desde el chrome, no pude hacer el commit si no anda volver a ponerlo, Igual hay algo mal con esto
-		Es el mismo codigo de adentro del if y no tiene nada que hacer ahi lo unico que hace es crashear porque mete una
-		fila donde no va
-		->Vector<Double> aux = vectores.remove(0); //pone al final el vector de los criterios para
-		->vectores.add(aux);				// que quede al final en la matriz de scores globales
-		*/
-
+	
 		Matriz scores = this.generarMatriz(vectores);
 		Vector<Score> salida = this.getScores(scores);
 		salida.sort(new ComparadorScores());

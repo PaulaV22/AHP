@@ -17,6 +17,7 @@ public class Controller {
 	private List<Filtro> filtros;
 	private List<Double> comparacionPareada;
 	private List<Object> datosIngresados;
+	private List<String> criterios;
 	
 	
 	public Controller(){
@@ -26,6 +27,9 @@ public class Controller {
 		datosIngresados = new ArrayList<>();
 	}
 	
+	public void setCriterios(List<String> criterios){
+		this.criterios = criterios;
+	}
 	public void setFiltros(List<Filtro> filtros){
 		this.filtros = filtros;
 	}
@@ -42,7 +46,7 @@ public class Controller {
 		this.comparacionPareada = puntajes;
 	}
 	
-	public void buscar (){
+	private List<Pc> getFiltradas(){
 		List<Pc> computadoras = bd.getComputadoras();
 		List<Pc> filtradas = new ArrayList<>();
 		for (Pc pc: computadoras){
@@ -52,7 +56,12 @@ public class Controller {
 				}
 			}
 		}
-		decisor = new Decisor(filtradas);
+		return filtradas;
+	}
+	public void buscar (){
+		List<Pc> opciones = this.getFiltradas();
+		decisor = new Decisor(opciones);
+		decisor.setCriterios(criterios);
 		decisor.armarMatrizComparaciones(comparacionPareada);
 		decisor.armarMatricesPuntajes(datosIngresados);
 		Vector<Score> resultados = decisor.calcular();
@@ -60,7 +69,5 @@ public class Controller {
 		vr.mostrarResultados(resultados);
 	}
 	
-	//DEBERIA RECIBIR LOS DATOS CARGADOS POR EL USUARIO Y CREAR EL MODELO (LAS MATRICES) Y PASARSELAS AL DECISOR,
-	//O BIEN TENER LOS DATOS 
-	//Y PASARSELOS AL DECISOR Y QUE EL DECISOR ARME LAS MATRICES 
+	
 }

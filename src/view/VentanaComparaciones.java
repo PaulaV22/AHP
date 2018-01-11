@@ -124,6 +124,7 @@ public class VentanaComparaciones extends JFrame {
 					puntajes.add((double) s.getValue());
 				}
 				controlador.setComparacionPareada(puntajes);
+				controlador.setCriterios(criterios);
 				controlador.buscar();
 			}
 		});

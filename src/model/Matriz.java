@@ -86,6 +86,14 @@ public class Matriz implements MatrizI{
 		return salida;
 	}
 	
+	public void complementar (){
+		for (int f = 1; f<this.filas(); f++){
+			for (int c=0; c<f; c++){
+				this.set(f, c, this.get(c, f));
+			}
+		}
+	}
+	
 	public void addFila(Vector<Double>vect){ //Este metodo tenia el mismo problema que addColumna 
 		double[][] nueva = new double[maxFilas+1][vect.size()];
 		for (int f=0; f<maxFilas; f++)
