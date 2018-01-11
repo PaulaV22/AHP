@@ -51,8 +51,8 @@ public class Decisor {
 					Double v1 = (Double) alternativas.get(j).get(atributo);
 					Double v2 = (Double) alternativas.get(k).get(atributo);
 					Double valorBuscado = (Double) datos.get(i);
-					Double dif1= Math.abs(valorBuscado - v1); //DIVIDIRLO POR EL MAX NUM EN ESE ATRIBUTO.
-					Double dif2= Math.abs(valorBuscado - v2); //DIVIDIRLO POR EL MAX NUM EN ESE ATRIBUTO.
+					Double dif1= Math.abs(valorBuscado - v1)/(this.getMax(atributo)); //DIVIDIRLO POR EL MAX NUM EN ESE ATRIBUTO.
+					Double dif2= Math.abs(valorBuscado - v2) /(this.getMax(atributo)); //DIVIDIRLO POR EL MAX NUM EN ESE ATRIBUTO.
 					Double valorFinal1;
 					Double valorFinal2;
 					if (dif1<=dif2){
@@ -96,6 +96,14 @@ public class Decisor {
 		return salida;
 	}
 	
+	private Double getMax(String atributo){
+		Double max = -1.0;
+		for (Pc pc: alternativas){
+			if ((Double)pc.get(atributo)>max)
+				max = (Double)pc.get(atributo);
+			}
+		return max;
+	}
 	
 	public Vector<Score> calcular(){
 		List<Vector<Double>> vectores = new ArrayList<>();

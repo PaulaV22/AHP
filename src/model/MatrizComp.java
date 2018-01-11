@@ -22,4 +22,6 @@ private Decisor d;
 			System.out.println("aca");
 		return salida;
 	}
+	
+	//FALTA UNIR LOS RESULTADOS DE ESTE VECTOR CON EL VECTOR GLOBAL MULTIPLICANDOLO CON EL CRITERIO "PADRE"
 }
