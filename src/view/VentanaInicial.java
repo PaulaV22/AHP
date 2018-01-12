@@ -49,6 +49,7 @@ public class VentanaInicial extends JFrame  {
 	private JTextField textFieldAutonomia;
 	private static Controller controlador;
 	private List<String> criterios;
+	private List<String> subcriterios;
 	/**
 	 * Launch the application.
 	 */
@@ -79,6 +80,7 @@ public class VentanaInicial extends JFrame  {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		criterios = new ArrayList<>();
+		subcriterios = new ArrayList<>();
 		
 		
 		JLabel lblquAndsBuscando = new JLabel("\u00BFQu\u00E9 est\u00E1s buscando?");
@@ -137,11 +139,12 @@ public class VentanaInicial extends JFrame  {
 		textFieldAutonomia.setColumns(10);
 		
 		
-		JLabel lblNewLabel_2 = new JLabel("Conectividad");
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel_2.setBounds(381, 94, 125, 20);
-		contentPane.add(lblNewLabel_2);
+		JLabel lblConectividad = new JLabel("Conectividad");
+		lblConectividad.setHorizontalAlignment(SwingConstants.CENTER);
+		lblConectividad.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblConectividad.setBounds(381, 94, 125, 20);
+		contentPane.add(lblConectividad);
+		criterios.add(lblConectividad.getText().toLowerCase());
 		
 		JLabel lblVelocidad = new JLabel("Velocidad");
 		lblVelocidad.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -269,22 +272,22 @@ public class VentanaInicial extends JFrame  {
 		JRadioButton rdbtnWifi = new JRadioButton("WiFi");
 		rdbtnWifi.setBounds(381, 154, 155, 29);
 		contentPane.add(rdbtnWifi);
-		criterios.add(rdbtnWifi.getText().toLowerCase());
+		subcriterios.add(rdbtnWifi.getText().toLowerCase());
 		
 		JRadioButton rdbtnHdmi = new JRadioButton("HDMI");
 		rdbtnHdmi.setBounds(381, 214, 83, 29);
 		contentPane.add(rdbtnHdmi);
-		criterios.add(rdbtnHdmi.getText().toLowerCase());
+		subcriterios.add(rdbtnHdmi.getText().toLowerCase());
 		
 		JRadioButton rdbtnCddvd = new JRadioButton("CD/DVD");
 		rdbtnCddvd.setBounds(381, 274, 95, 29);
 		contentPane.add(rdbtnCddvd);
-		criterios.add(rdbtnCddvd.getText().toLowerCase());
+		subcriterios.add(rdbtnCddvd.getText().toLowerCase());
 		
 		JRadioButton rdbtnUsb = new JRadioButton("USB");
 		rdbtnUsb.setBounds(381, 334, 69, 29);
 		contentPane.add(rdbtnUsb);
-		criterios.add(rdbtnUsb.getText().toLowerCase());
+		subcriterios.add(rdbtnUsb.getText().toLowerCase());
 		
 		JComboBox<Integer> cantUsb = new JComboBox<Integer>();
 		cantUsb.setModel(new DefaultComboBoxModel<Integer>(new Integer[] {0,1,2,3,4,5}));
@@ -294,7 +297,7 @@ public class VentanaInicial extends JFrame  {
 		JRadioButton rdbtnBluethoot = new JRadioButton("Bluethoot");
 		rdbtnBluethoot.setBounds(381, 394, 105, 29);
 		contentPane.add(rdbtnBluethoot);
-		criterios.add(rdbtnBluethoot.getText().toLowerCase());
+		subcriterios.add(rdbtnBluethoot.getText().toLowerCase());
 		
 		
 		JButton btnBuscar = new JButton("Siguiente");
@@ -338,13 +341,8 @@ public class VentanaInicial extends JFrame  {
 				
 				
 				
-				
-				List<String> criterios = new ArrayList<>();
-				criterios.add("precio");
-				criterios.add("velocidad");
-				criterios.add("capacidad");
-				criterios.add("conectividad");
-				criterios.add("pantalla");
+				for (String criterio:criterios)
+					System.out.println(criterio);
 				VentanaComparaciones vc = new VentanaComparaciones(controlador, criterios);
 				vc.show();
 				
@@ -353,7 +351,9 @@ public class VentanaInicial extends JFrame  {
 			
 		});
 
-		
+		for (String sc: subcriterios){
+			System.out.println(sc);
+		}
 		btnBuscar.setBounds(621, 451, 115, 29);
 		contentPane.add(btnBuscar);
 		
