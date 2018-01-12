@@ -141,7 +141,35 @@ public class Matriz implements MatrizI{
 			text=text+"]";
 		return text;
 	}
+	public boolean Consistencia() {	//se tiene que llamar con la matriz sin normalizar
+		Matriz matrizNueva = clone(this);
+		Vector<Double> vector = getVector();
+		Vector<Double> primeraInstancia = new Vector<Double>();
+		for (int i = 0 ; i < maxFilas ; i++)
+		{
+			for (int j = 0 ; j < maxColumnas ; j++)
+			{
+				primeraInstancia.add(i, primeraInstancia.get(i) + matrizNueva.get(i, j) * vector.get(j));
+			}
+		}
+		double promedio = 0;
+		for (int i = 0 ; i < maxFilas ; i++)
+		{
+			promedio += primeraInstancia.get(i) / vector.get(i);
+		}
+		promedio = ( (promedio / maxFilas ) - opciones.size() ) / (opciones.size()-1);
+		double indiceAleatorio = getIndiceAleatorio(opciones.size());
+		promedio = promedio / indiceAleatorio;
+		if (promedio < 0.1)
+			return true;
+		else
+			return false;
+	}
 
+	
+	public double getIndiceAleatorio(int size) {// Devuelve una aproximacion del RI. Extraida de internet(No estaba en las filminas)
+		return (1.98*(size-2))/size;
+	}
 	public Matriz clone(Matriz mat){
 		Matriz matrizNueva = new Matriz(mat.maxFilas,mat.maxColumnas,null);
 		for(int i=0;i<matrizNueva.maxFilas;i++)
