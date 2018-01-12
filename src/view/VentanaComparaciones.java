@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.Controller;
+import model.Criterio;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -28,9 +29,11 @@ public class VentanaComparaciones extends JFrame {
 	private JPanel contentPane;
 	private Controller controlador;
 	private List<JSlider> sliders;
-	private List<String> criterios;
+	private List<Criterio> criterios;
 	private JTextField textField;
 	private Hashtable<Integer, String> escala;
+	private JPanel panel;
+	private JScrollPane scrollpane;
 
 	/**
 	 * Launch the application.
@@ -40,7 +43,7 @@ public class VentanaComparaciones extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaComparaciones(Controller c, List<String> criterios) {
+	public VentanaComparaciones(Controller c, List<Criterio> criterios) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 847, 572);
 		contentPane = new JPanel();
@@ -50,6 +53,7 @@ public class VentanaComparaciones extends JFrame {
 		controlador = c;
 		sliders = new ArrayList<>();
 		this.criterios = criterios;	
+
 		escala = new Hashtable<>();
 		escala.put(1,"levemente mas importante");
 		escala.put(2, "levemente mas importante");
@@ -61,19 +65,47 @@ public class VentanaComparaciones extends JFrame {
 		escala.put(8, "mucho mas importante");
 		escala.put(9, "extremadamente mas importante");
 	
-		JPanel panel = new JPanel();
-		JScrollPane pane = new JScrollPane(panel);
-		pane.setBounds(100,80,626,350);
-		contentPane.add(pane);
-		
-		
-		
-
+		panel = new JPanel();
+		scrollpane = new JScrollPane(panel);
+		scrollpane.setBounds(100,80,626,350);
+		contentPane.add(scrollpane);
 		panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
+		
+		this.mostrarComparaciones(criterios);
+			
+		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				List<Double> puntajes = new ArrayList<>();
+				for (JSlider s : sliders)    //COMO DIFERENCIAR CUAL ES CRITERIO Y CUAL ES SUBCRITERIO?? HAY QUE HACER LISTAS DIFERENTES
+				if (s.getValue()<0){
+					Double valor=(double) (1/-(s.getValue()));
+					puntajes.add(valor);
+				}
+				else {
+					puntajes.add((double) s.getValue());
+				}
+				controlador.setComparacionPareada(puntajes);
+				controlador.setCriterios(criterios);
+				controlador.buscar();
+			}
+		});
+		btnBuscar.setBounds(611, 471, 115, 29);
+		contentPane.add(btnBuscar);
+		
+		JLabel lblquTeParece = new JLabel("\u00BFQu\u00E9 te parece m\u00E1s importante?");
+		lblquTeParece.setHorizontalAlignment(SwingConstants.CENTER);
+		lblquTeParece.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblquTeParece.setBounds(0, 4, 825, 34);
+		contentPane.add(lblquTeParece);		
+	}
+	
+	private void mostrarComparaciones(List<Criterio> criterios){
 		for (int i=0; i<criterios.size()-1; i++){
 			for (int j=i+1; j<criterios.size(); j++){
-				String crit1 = criterios.get(i);
-				String crit2 = criterios.get(j);
+				String crit1 = criterios.get(i).getNombre();
+				String crit2 = criterios.get(j).getNombre();
 				JLabel titulo = new JLabel(crit1+ " vs "+ crit2);
 				titulo.setFont(new Font("Tahoma", Font.PLAIN, 18));
 				JSlider s = new JSlider();
@@ -105,41 +137,11 @@ public class VentanaComparaciones extends JFrame {
 				panel.add(descripcion);
 				panel.add(s);	
 				
-			}			
-		}
-			
-	
-		
-		JButton btnBuscar = new JButton("Buscar");
-		btnBuscar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				List<Double> puntajes = new ArrayList<>();
-				for (JSlider s : sliders)
-				if (s.getValue()<0){
-					Double valor=(double) (1/s.getValue());
-					puntajes.add(valor);
-				}
-				else {
-					puntajes.add((double) s.getValue());
-				}
-				controlador.setComparacionPareada(puntajes);
-				controlador.setCriterios(criterios);
-				controlador.buscar();
+			}	
+			List<Criterio> subcriterios = criterios.get(i).getSubcriterios();
+			if (subcriterios != null){
+				this.mostrarComparaciones(subcriterios);
 			}
-		});
-		
-		
-		btnBuscar.setBounds(611, 471, 115, 29);
-		contentPane.add(btnBuscar);
-		
-		
-		JLabel lblquTeParece = new JLabel("\u00BFQu\u00E9 te parece m\u00E1s importante?");
-		lblquTeParece.setHorizontalAlignment(SwingConstants.CENTER);
-		lblquTeParece.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		lblquTeParece.setBounds(0, 4, 825, 34);
-		contentPane.add(lblquTeParece);
-		
-		
+		}	
 	}
 }

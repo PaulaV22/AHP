@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Vector;
 
 import model.BaseDatos;
+import model.Criterio;
 import model.Decisor;
 import model.Pc;
 import model.Score;
@@ -17,7 +18,7 @@ public class Controller {
 	private List<Filtro> filtros;
 	private List<Double> comparacionPareada;
 	private List<Object> datosIngresados;
-	private List<String> criterios;
+	private List<Criterio> criterios;
 	
 	
 	public Controller(){
@@ -27,8 +28,8 @@ public class Controller {
 		datosIngresados = new ArrayList<>();
 	}
 	
-	public void setCriterios(List<String> criterios){
-		this.criterios = criterios;
+	public void setCriterios(List<Criterio> criterios2){
+		this.criterios = criterios2;
 	}
 	public void setFiltros(List<Filtro> filtros){
 		this.filtros = filtros;
@@ -61,7 +62,7 @@ public class Controller {
 	public void buscar (){
 		List<Pc> opciones = this.getFiltradas();
 		decisor = new Decisor(opciones);
-		decisor.setCriterios(criterios);
+		//decisor.setCriterios(criterios);
 		decisor.armarMatrizComparaciones(comparacionPareada);
 		decisor.armarMatricesPuntajes(datosIngresados);
 		Vector<Score> resultados = decisor.calcular();

@@ -8,6 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.Controller;
+import model.Criterio;
+import model.CriterioCompuesto;
+import model.CriterioSimple;
 import model.filtros.Filtro;
 import model.filtros.Igual;
 import model.filtros.Menor;
@@ -48,8 +51,7 @@ public class VentanaInicial extends JFrame  {
 	private JTextField textFieldPrecioMax;
 	private JTextField textFieldAutonomia;
 	private static Controller controlador;
-	private List<String> criterios;
-	private List<String> subcriterios;
+	private List<Criterio> criterios;
 	/**
 	 * Launch the application.
 	 */
@@ -80,7 +82,6 @@ public class VentanaInicial extends JFrame  {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		criterios = new ArrayList<>();
-		subcriterios = new ArrayList<>();
 		
 		
 		JLabel lblquAndsBuscando = new JLabel("\u00BFQu\u00E9 est\u00E1s buscando?");
@@ -93,7 +94,8 @@ public class VentanaInicial extends JFrame  {
 		lblprecio.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblprecio.setBounds(15, 94, 155, 24);
 		contentPane.add(lblprecio);
-		criterios.add(lblprecio.getText().toLowerCase());
+		CriterioSimple precio = new CriterioSimple(lblprecio.getText().toLowerCase());
+		criterios.add(precio);
 		
 		textFieldPrecioMax = new JTextField();		
 		textFieldPrecioMax.setText("0.0");
@@ -123,14 +125,18 @@ public class VentanaInicial extends JFrame  {
 		lblPantalla.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPantalla.setBounds(50, 394, 69, 20);
 		contentPane.add(lblPantalla);
-		criterios.add(lblPantalla.getText().toLowerCase());
+		CriterioSimple pantalla = new CriterioSimple(lblPantalla.getText().toLowerCase());
+		criterios.add(pantalla);
+
 		
 		JLabel lblAutonomia = new JLabel("Autonomia");
 		lblAutonomia.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblAutonomia.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblAutonomia.setBounds(24, 454, 95, 20);
 		contentPane.add(lblAutonomia);
-		criterios.add(lblAutonomia.getText().toLowerCase());
+		CriterioSimple autonomia = new CriterioSimple(lblAutonomia.getText().toLowerCase());
+		criterios.add(autonomia);
+		
 		
 		textFieldAutonomia = new JTextField();
 		textFieldAutonomia.setText("0.0");
@@ -144,14 +150,18 @@ public class VentanaInicial extends JFrame  {
 		lblConectividad.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblConectividad.setBounds(381, 94, 125, 20);
 		contentPane.add(lblConectividad);
-		criterios.add(lblConectividad.getText().toLowerCase());
+		CriterioCompuesto conectividad = new CriterioCompuesto(lblConectividad.getText().toLowerCase());
+		criterios.add(conectividad);
+		
 		
 		JLabel lblVelocidad = new JLabel("Velocidad");
 		lblVelocidad.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblVelocidad.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblVelocidad.setBounds(24, 214, 95, 20);
 		contentPane.add(lblVelocidad);
-		criterios.add(lblVelocidad.getText().toLowerCase());
+		CriterioSimple velocidad = new CriterioSimple(lblVelocidad.getText().toLowerCase());
+		criterios.add(velocidad);
+		
 		
 		JSlider sliderVelocidad = new JSlider();
 		sliderVelocidad.setValue(0);
@@ -164,7 +174,9 @@ public class VentanaInicial extends JFrame  {
 		lblPeso.setVerticalAlignment(SwingConstants.BOTTOM);
 		lblPeso.setBounds(50, 274, 69, 20);
 		contentPane.add(lblPeso);
-		criterios.add(lblPeso.getText().toLowerCase());
+		CriterioSimple peso = new CriterioSimple(lblPeso.getText().toLowerCase());
+		criterios.add(peso);
+		
 		
 		JSlider sliderPeso = new JSlider();
 		sliderPeso.setValue(0);
@@ -176,8 +188,8 @@ public class VentanaInicial extends JFrame  {
 		lblCapacidad.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblCapacidad.setBounds(14, 334, 105, 20);
 		contentPane.add(lblCapacidad);
-		criterios.add(lblCapacidad.getText().toLowerCase());
-		
+		CriterioSimple capacidad = new CriterioSimple(lblCapacidad.getText().toLowerCase());
+		criterios.add(capacidad);		
 		
 		JSlider sliderCapacidad = new JSlider();
 		sliderCapacidad.setMaximum(1000000);
@@ -272,23 +284,28 @@ public class VentanaInicial extends JFrame  {
 		JRadioButton rdbtnWifi = new JRadioButton("WiFi");
 		rdbtnWifi.setBounds(381, 154, 155, 29);
 		contentPane.add(rdbtnWifi);
-		subcriterios.add(rdbtnWifi.getText().toLowerCase());
+		CriterioSimple wifi = new CriterioSimple(rdbtnWifi.getText().toLowerCase());
+		conectividad.addSubcriterio(wifi);
 		
 		JRadioButton rdbtnHdmi = new JRadioButton("HDMI");
 		rdbtnHdmi.setBounds(381, 214, 83, 29);
 		contentPane.add(rdbtnHdmi);
-		subcriterios.add(rdbtnHdmi.getText().toLowerCase());
+		CriterioSimple hdmi = new CriterioSimple(rdbtnHdmi.getText().toLowerCase());
+		conectividad.addSubcriterio(hdmi);
 		
 		JRadioButton rdbtnCddvd = new JRadioButton("CD/DVD");
 		rdbtnCddvd.setBounds(381, 274, 95, 29);
 		contentPane.add(rdbtnCddvd);
-		subcriterios.add(rdbtnCddvd.getText().toLowerCase());
+		CriterioSimple cd_dvd = new CriterioSimple(rdbtnCddvd.getText().toLowerCase());
+		conectividad.addSubcriterio(cd_dvd);
+		
 		
 		JRadioButton rdbtnUsb = new JRadioButton("USB");
 		rdbtnUsb.setBounds(381, 334, 69, 29);
 		contentPane.add(rdbtnUsb);
-		subcriterios.add(rdbtnUsb.getText().toLowerCase());
-		
+		CriterioSimple usb = new CriterioSimple(rdbtnUsb.getText().toLowerCase());
+		conectividad.addSubcriterio(usb);
+				
 		JComboBox<Integer> cantUsb = new JComboBox<Integer>();
 		cantUsb.setModel(new DefaultComboBoxModel<Integer>(new Integer[] {0,1,2,3,4,5}));
 		cantUsb.setBounds(456, 334, 50, 26);
@@ -297,8 +314,9 @@ public class VentanaInicial extends JFrame  {
 		JRadioButton rdbtnBluethoot = new JRadioButton("Bluethoot");
 		rdbtnBluethoot.setBounds(381, 394, 105, 29);
 		contentPane.add(rdbtnBluethoot);
-		subcriterios.add(rdbtnBluethoot.getText().toLowerCase());
-		
+		CriterioSimple bluethoot = new CriterioSimple(rdbtnBluethoot.getText().toLowerCase());
+		conectividad.addSubcriterio(bluethoot);
+				
 		
 		JButton btnBuscar = new JButton("Siguiente");
 		btnBuscar.addMouseListener(new MouseAdapter() {
@@ -327,22 +345,17 @@ public class VentanaInicial extends JFrame  {
 				datos.add(Double.valueOf(textFieldAutonomia.getText()));
 				datos.add(tamanio.getSelectedItem());
 				//VER COMO HACER LO DE LA CONECTIVIDAD CON SUBCRITERIOS, LOS PONGO EN LA LISTA
+				//
 				datos.add(rdbtnWifi.isSelected());
 				datos.add(rdbtnHdmi.isSelected());
 				datos.add(rdbtnCddvd.isSelected());
 				if (rdbtnUsb.isSelected())
 					datos.add(cantUsb.getSelectedItem());
 				else datos.add(0);
-				
-				
-				
 				datos.add(rdbtnBluethoot.isSelected());
+				//
 				controlador.setDatos(datos);
 				
-				
-				
-				for (String criterio:criterios)
-					System.out.println(criterio);
 				VentanaComparaciones vc = new VentanaComparaciones(controlador, criterios);
 				vc.show();
 				
@@ -351,13 +364,8 @@ public class VentanaInicial extends JFrame  {
 			
 		});
 
-		for (String sc: subcriterios){
-			System.out.println(sc);
-		}
 		btnBuscar.setBounds(621, 451, 115, 29);
 		contentPane.add(btnBuscar);
-		
-		
 		
 	}
 }
