@@ -28,7 +28,7 @@ public class VentanaComparaciones extends JFrame {
 
 	private JPanel contentPane;
 	private Controller controlador;
-	private List<JSlider> sliders;
+	private List<List<JSlider>> sliders;
 	private List<Criterio> criterios;
 	private JTextField textField;
 	private Hashtable<Integer, String> escala;
@@ -43,7 +43,8 @@ public class VentanaComparaciones extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaComparaciones(Controller c, List<Criterio> criterios) {
+	public VentanaComparaciones(Controller c, List<Criterio> criterios, VentanaInicial v) {
+		v.setVisible(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 847, 572);
 		contentPane = new JPanel();
@@ -52,6 +53,10 @@ public class VentanaComparaciones extends JFrame {
 		contentPane.setLayout(null);
 		controlador = c;
 		sliders = new ArrayList<>();
+		List<JSlider> criteriosPrincipales = new ArrayList<>();
+		List<JSlider> subcriterios = new ArrayList<>();
+		sliders.add(criteriosPrincipales);
+		sliders.add(subcriterios);
 		this.criterios = criterios;	
 
 		escala = new Hashtable<>();
@@ -77,19 +82,9 @@ public class VentanaComparaciones extends JFrame {
 		btnBuscar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				List<Double> puntajes = new ArrayList<>();
-				for (JSlider s : sliders)    //COMO DIFERENCIAR CUAL ES CRITERIO Y CUAL ES SUBCRITERIO?? HAY QUE HACER LISTAS DIFERENTES
-				if (s.getValue()<0){
-					Double valor=(double) (1/-(s.getValue()));
-					puntajes.add(valor);
-				}
-				else {
-					puntajes.add((double) s.getValue());
-				}
-				controlador.setComparacionPareada(puntajes);
 				controlador.setCriterios(criterios);
 				controlador.buscar();
-			}
+				}
 		});
 		btnBuscar.setBounds(611, 471, 115, 29);
 		contentPane.add(btnBuscar);
@@ -104,18 +99,20 @@ public class VentanaComparaciones extends JFrame {
 	private void mostrarComparaciones(List<Criterio> criterios){
 		for (int i=0; i<criterios.size()-1; i++){
 			for (int j=i+1; j<criterios.size(); j++){
-				String crit1 = criterios.get(i).getNombre();
-				String crit2 = criterios.get(j).getNombre();
+				Criterio c1 = criterios.get(i);
+				Criterio c2 = criterios.get(j);
+				String crit1 = c1.getNombre();
+				String crit2 = c2.getNombre();
 				JLabel titulo = new JLabel(crit1+ " vs "+ crit2);
 				titulo.setFont(new Font("Tahoma", Font.PLAIN, 18));
 				JSlider s = new JSlider();
+				c1.setComparacion(c2, s);  //CADA CRITERIO TIENE UNA REFERENCIA AL SLIDER QUE LE CORRESPONDE CON OTRO CRITERIO
 				s.setMaximum(9);
 				s.setMinimum(-9);
 				s.setValue(0);
 				s.setSize(10, 10);
 				panel.add(titulo);
-				
-				
+								
 				JLabel descripcion = new JLabel(crit1+ " y "+ crit2+" son igual de importantes");
 				descripcion.setFont(new Font("Tahoma", Font.PLAIN, 17));
 				s.addChangeListener(new ChangeListener() {
@@ -144,4 +141,6 @@ public class VentanaComparaciones extends JFrame {
 			}
 		}	
 	}
+	
+
 }

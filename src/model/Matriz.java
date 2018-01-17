@@ -2,22 +2,14 @@ package model;
 import java.util.List;
 import java.util.Vector;
 
-public class Matriz implements MatrizI{
+public class Matriz {
 	protected int maxFilas;
 	protected int maxColumnas;
 	protected double[][] matriz;
-	private List<String> opciones; ///tanto criterios como opciones de pcs
 	
-	public Matriz(int mf, int mc, List<String> ops){ //le llega la lista de string de las opciones de pc o de alternativas, y todas las matrices tienen el mismo orden
-		if (ops == null){
-			maxFilas= mf;
-			maxColumnas= mc;
-		} 
-		else{
-			maxFilas = ops.size();
-			maxColumnas = ops.size();
-		}
-		opciones = ops;
+	public Matriz(int mf, int mc){ //le llega la lista de string de las opciones de pc o de alternativas, y todas las matrices tienen el mismo orden
+		maxFilas = mf;
+		maxColumnas = mc;
 		matriz = new double [maxFilas][maxColumnas];
 	}
 
@@ -35,6 +27,8 @@ public class Matriz implements MatrizI{
 	
 	public void set (int f, int c, double d){
 		matriz[f][c] = d;
+		//System.out.println("se ingreso en " +f+" "+c+" "+d+" la matriz queda:");
+		//System.out.println(this.toString());
 	}
 	
 	public double getPromedioFila(int f){
@@ -69,12 +63,14 @@ public class Matriz implements MatrizI{
 		return salida;
 	}
 	private void Normalizar(){ // Normaliza la matriz modificandola permanentemente
+		//System.out.println("se normaliza la matriz :"+this.toString());
 		double[][] salida=new double[this.maxFilas][this.maxColumnas];
 		for (int f=0; f<maxFilas; f++)
 			for (int c=0; c<maxColumnas; c++){
 				salida[f][c]= this.get(f, c)/this.sumaColumna(c);
 			}
-		matriz=salida;
+		//matriz=salida;
+		System.out.println("matriz normalizada :"+this.toString());
 	}
 	
 	public Vector<Double> getVector(){ // Devuelve el promedio de cada fila en un vector
@@ -88,9 +84,10 @@ public class Matriz implements MatrizI{
 	
 
 	public void complementar (){
+		System.out.println("se quiere complementar la matriz");
 		for (int f = 1; f<this.filas(); f++){
 			for (int c=0; c<f; c++){
-				this.set(f, c, this.get(c, f));
+				this.set(f, c, 1/this.get(c, f));
 			}
 		}
 	}
@@ -101,7 +98,6 @@ public class Matriz implements MatrizI{
 			for (int c=0; c<maxColumnas; c++){
 				nueva[f][c] = matriz[f][c];
 			}
-		
 		for (int c=0; c<vect.size(); c++){
 			nueva[maxFilas][c]=vect.get(c);
 		}
@@ -111,9 +107,10 @@ public class Matriz implements MatrizI{
 		matriz = nueva;
 	}
 	
-	public void addColumna(Vector<Double>vect){ //Agrega una columna a la matriz. Puede tener problemas si agregamos una columna con
-												// un largo inapropiado. (El vector tiene que tener el mismo size que la matriz excepto
-												// cuando la matriz es inicializada como new matriz(0,0,null);
+	public void addColumna(Vector<Double>vect){ 
+		//Agrega una columna a la matriz. Puede tener problemas si agregamos una columna con
+		// un largo inapropiado. (El vector tiene que tener el mismo size que la matriz excepto
+		// cuando la matriz es inicializada como new matriz(0,0,null);
 		double[][] nueva = new double[vect.size()][maxColumnas+1];
 		for (int f=0; f<maxFilas; f++)
 			for (int c=0; c<maxColumnas; c++){
@@ -143,7 +140,7 @@ public class Matriz implements MatrizI{
 	}
 
 	public Matriz clone(Matriz mat){
-		Matriz matrizNueva = new Matriz(mat.maxFilas,mat.maxColumnas,null);
+		Matriz matrizNueva = new Matriz(mat.maxFilas,mat.maxColumnas);
 		for(int i=0;i<matrizNueva.maxFilas;i++)
 			for(int j=0;j<matrizNueva.maxColumnas;j++)
 				matrizNueva.set(i, j,mat.get(i, j));
