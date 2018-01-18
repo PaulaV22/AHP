@@ -77,6 +77,7 @@ public class VentanaComparaciones extends JFrame {
 				JLabel titulo = new JLabel(crit1+ " vs "+ crit2);
 				titulo.setFont(new Font("Tahoma", Font.PLAIN, 18));
 				JSlider s = new JSlider();
+			    sliders.add(s); // Faltaba agregarlo a la lista de sliders
 				s.setMaximum(9);
 				s.setMinimum(-9);
 				s.setValue(0);
@@ -107,25 +108,29 @@ public class VentanaComparaciones extends JFrame {
 				
 			}			
 		}
-			
-	
 		
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				List<Double> puntajes = new ArrayList<>();
-				for (JSlider s : sliders)
-				if (s.getValue()<0){
-					Double valor=(double) (1/s.getValue());
-					puntajes.add(valor);
-				}
+				for (JSlider s : sliders){ //Este pedazo de codigo lo modifique para que 
+					//cuando el getvalue es 0 que transmita un 1 al controladores
+				Double valor=(double) s.getValue();
+				if (valor<0)
+					puntajes.add(1/valor);
 				else {
-					puntajes.add((double) s.getValue());
+					if(valor==0)
+						puntajes.add(1.0);
+					else
+						puntajes.add(valor);
 				}
+				}
+				System.out.println(puntajes);
 				controlador.setComparacionPareada(puntajes);
 				controlador.setCriterios(criterios);
 				controlador.buscar();
+				
 			}
 		});
 		

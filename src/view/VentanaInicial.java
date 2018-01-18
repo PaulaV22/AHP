@@ -108,7 +108,7 @@ public class VentanaInicial extends JFrame  {
 		contentPane.add(lblMarca);
 		
 		JComboBox listMarcas = new JComboBox();
-		listMarcas.setModel(new DefaultComboBoxModel(new String[] {"No se", "Acer", "Compaq", "Dell", "HP", "Lenovo", "Mac", "Samsung", "Vaio"}));
+		listMarcas.setModel(new DefaultComboBoxModel(new String[] {"Cualquiera", "Acer", "Compaq", "Dell", "HP", "Lenovo", "Mac", "Samsung", "Vaio"}));
 		listMarcas.setBounds(135, 154, 146, 26);
 		contentPane.add(listMarcas);
 		
@@ -311,7 +311,7 @@ public class VentanaInicial extends JFrame  {
 					Filtro preciomenor = new Menor ("precio", preciomax);
 					filtros.add(preciomenor);
 				}
-				if (!listMarcas.getSelectedItem().toString().equals("No se")){
+				if (!listMarcas.getSelectedItem().toString().equals("Cualquiera")){
 					Filtro marcaigual = new Igual ("marca",listMarcas.getSelectedItem().toString());
 					filtros.add(marcaigual);
 				}
@@ -344,6 +344,7 @@ public class VentanaInicial extends JFrame  {
 				for (String criterio:criterios)
 					System.out.println(criterio);
 				VentanaComparaciones vc = new VentanaComparaciones(controlador, criterios);
+				
 				vc.show();
 				
 			

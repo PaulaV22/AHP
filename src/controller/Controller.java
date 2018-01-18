@@ -67,6 +67,8 @@ public class Controller {
 		Vector<Score> resultados = decisor.calcular();
 		VentanaResultados vr= new VentanaResultados();
 		vr.mostrarResultados(resultados);
+		vr.show();
+		System.out.println("Hasta aca llego");
 	}
 	
 	

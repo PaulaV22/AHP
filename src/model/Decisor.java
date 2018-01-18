@@ -29,14 +29,25 @@ public class Decisor {
 
 	
 	public void armarMatrizComparaciones(List<Double> comparacionPareada){
+		
 		Matriz matrizCriterios = new Matriz (criterios.size(),criterios.size(), null);
+		for(int f=0;f<criterios.size();f++){ ///Intento de arreglo 
+			for(int c=0;c<criterios.size();c++){
+				if(c>f){ ///Agrego de comparacion pareada si esta en la mitad correcta de la matriz
+					matrizCriterios.set(f, c, comparacionPareada.remove(0));// Tira error porque comparacionPareada llega vacia
+				}
+				if(c==f) //Si esta en la diagonal pongo un 1
+					matrizCriterios.set(f, c, 1.0);
+			}
+		}
+/*
 		for (int f = 0; f<criterios.size(); f++){
 			int c = f;
 			matrizCriterios.set(f, c, 1.0);
 			for (c = f+1; c<criterios.size(); c++){
 				matrizCriterios.set(f, c, comparacionPareada.remove(0));
 			}
-		}
+		}*/
 		matrizCriterios.complementar();
 		matrices.add(matrizCriterios);
 	}
