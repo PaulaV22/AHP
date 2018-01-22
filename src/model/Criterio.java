@@ -82,9 +82,7 @@ public abstract class Criterio {
 		ponderacion = d;
 	}
 
-	public Double getPonderacion() {
-		return ponderacion;
-	}
+	public abstract Matriz getMatriz();
 
 	public abstract List<Criterio> getSubcriterios();
 

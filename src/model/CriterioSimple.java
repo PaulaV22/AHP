@@ -31,8 +31,12 @@ public class CriterioSimple extends Criterio {
 	
 	public List<Double> getPonderaciones (){
 		List<Double> salida = new ArrayList<>();
-		salida.add(this.valor);
+		salida.add(this.ponderacion);
 		return salida;
+	}
+	
+	public Matriz getMatriz(){
+		return null;
 	}
 }
 

@@ -35,15 +35,21 @@ public class CriterioCompuesto extends Criterio {
 		comparacionPareadaSubcriterios = m;
 	}
 	
+	public Matriz getMatriz(){
+		return comparacionPareadaSubcriterios;
+	}
+	
 	public List<Double> getPonderaciones (){
 		List<Double> salida = new ArrayList<>();
 		for (Criterio c:subcriterios){
-			for (Double val: c.getPonderaciones()){
-				Double nuevo = this.valor * val;
+			List<Double> ponderacionesCriterio = c.getPonderaciones();
+			for (Double val: ponderacionesCriterio){
+				Double nuevo = this.ponderacion * val;
 				salida.add(nuevo);
 			};
 		}
 		return salida;
 	}
+
 
 }

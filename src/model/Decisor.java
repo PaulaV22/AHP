@@ -25,11 +25,10 @@ public class Decisor {
 		
 	}
 	
-	public Matriz getMatrizComparacionCriterios(List<Criterio> criterios, int nivel){
+	public Matriz getMatrizComparacionCriterios(List<Criterio> criterios){
 		//HACE UNA MATRIZ PARA LOS CRITERIOS PADRES.SI ALGUN CRITERIO TIENE SUBCRITERIOS SE GENERA UNA MATRIZ APARTE
 		//Y SE LA REFERENCIA DESDE EL CRITERIO
 		Matriz matrizCriteriosLocal = new Matriz(criterios.size(), criterios.size());
-		System.out.println(criterios.size()+" son los criterios");
 		for (int f=0; f<criterios.size(); f++){
 			Criterio c1 = criterios.get(f);
 			List<Criterio> comparaciones = c1.getComparados();
@@ -48,15 +47,12 @@ public class Decisor {
 			//System.out.println("venia generando la matriz "+ matrizCriterios.toString());
 			List<Criterio> subcriterios = c1.getSubcriterios();
 			if (!subcriterios.isEmpty()){
-				System.out.println("encontro subcriterios de "+c1.nombre);
-				Matriz m = this.getMatrizComparacionCriterios(subcriterios, nivel+1);
+				Matriz m = this.getMatrizComparacionCriterios(subcriterios);
 				//System.out.println("setea la matriz "+m.toString() );
 				c1.setMatriz(m);
 			}
 		}
 		matrizCriteriosLocal.complementar();
-		System.out.println("retorna la matriz "+ matrizCriteriosLocal.toString() + nivel);
-
 		return matrizCriteriosLocal;
 		
 	}
@@ -101,6 +97,7 @@ public class Decisor {
 						}
 						m.set(j, k, valorFinal1);
 						m.set(k, j, valorFinal2);
+
 					}
 				}
 			}
@@ -133,6 +130,7 @@ public class Decisor {
 	private Vector<Double> getPonderacionesCriteriosHojas(){
 		Vector<Double> salida = new Vector<Double>();
 		for (Criterio c:criterios){
+		
 			salida.addAll(c.getPonderaciones());
 		}
 		return salida;
@@ -147,8 +145,19 @@ public class Decisor {
 		return max;
 	}
 	
+	private void setComparacionCriterios(List<Criterio> criterios, Matriz matrizComparadora){
+	//OBTIENE EL VECTOR DE COMPARACION DE CRITERIOS PARA TODOS LOS CRITERIOS DE UN NIVEL Y SI TIENE SUBCRITERIOS LLAMA RECURSIVAMENTE
+		Vector<Double> comps = matrizComparadora.getVector();
+		for (int i = 0; i<criterios.size(); i++){
+			criterios.get(i).setPonderacion(comps.get(i));
+			if (!criterios.get(i).getSubcriterios().isEmpty())
+				setComparacionCriterios(criterios.get(i).getSubcriterios(),criterios.get(i).getMatriz());
+		}
+
+	}
 	
-	public Vector<Score> calcular(){
+	
+	public Vector<Score> calcular(Matriz matrizCriterios){
 		List<Vector<Double>> vectores = new ArrayList<>();
 		//OBTIENE EL VECTOR DE CADA MATRIZ DE ALTERNATIVAS
 		for (Matriz m: matricesAlternativas){   
@@ -156,11 +165,11 @@ public class Decisor {
 			vectores.add(v);
 		}
 		//OBTIENE EL VECTOR DE COMPARACION DE CRITERIOS PARA TODOS LOS CRITERIOS DEL NIVEL SUPERIOR, TENGAN O NO SUBCRITERIOS
-		Vector<Double> ponderaciones = matrizCriterios.getVector();
-		for (int i=0; i<ponderaciones.size(); i++){
-			criterios.get(i).setPonderacion(ponderaciones.get(i));  //SETEA LA PONDERACION DE CADA CRITERIO PADRE
-		}
+		setComparacionCriterios(criterios, matrizCriterios);
 		Vector<Double> ponderacionCriteriosFinales = this.getPonderacionesCriteriosHojas();
+		for (Double d:ponderacionCriteriosFinales){
+			System.out.println(d);
+		}
 		//GENERA LA MATRIZ FINAL 
 		Matriz scores = this.generarMatrizFinal(vectores, ponderacionCriteriosFinales);
 		Vector<Score> salida = this.getScores(scores);

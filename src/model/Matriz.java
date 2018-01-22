@@ -17,6 +17,7 @@ public class Matriz {
 		return maxFilas;
 	}
 	
+	
 	public int columnas(){
 		return maxColumnas;
 	}
@@ -27,9 +28,10 @@ public class Matriz {
 	
 	public void set (int f, int c, double d){
 		matriz[f][c] = d;
-		//System.out.println("se ingreso en " +f+" "+c+" "+d+" la matriz queda:");
-		//System.out.println(this.toString());
+	
 	}
+	
+
 	
 	public double getPromedioFila(int f){
 		double totalFila= 0.0;
@@ -69,8 +71,7 @@ public class Matriz {
 			for (int c=0; c<maxColumnas; c++){
 				salida[f][c]= this.get(f, c)/this.sumaColumna(c);
 			}
-		//matriz=salida;
-		System.out.println("matriz normalizada :"+this.toString());
+		matriz=salida;
 	}
 	
 	public Vector<Double> getVector(){ // Devuelve el promedio de cada fila en un vector
@@ -84,7 +85,6 @@ public class Matriz {
 	
 
 	public void complementar (){
-		System.out.println("se quiere complementar la matriz");
 		for (int f = 1; f<this.filas(); f++){
 			for (int c=0; c<f; c++){
 				this.set(f, c, 1/this.get(c, f));

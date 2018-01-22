@@ -77,11 +77,12 @@ public class Controller {
 		decisor = new Decisor(alternativas);  //CAMBIAR ALTERNATIVAS POR OPCIONES
 		decisor.setCriterios(criterios);
 		//ARMA LA MATRIZ DE COMPARACION DE CRITERIOS PADRES Y DE SUBCRITERIOS PONIENDOLOS EN LOS CRITERIOS COMPUESTOS
-		Matriz comparacionDeCriterios = decisor.getMatrizComparacionCriterios(criterios, 0);//SEGUIR CON ESTA MATRIZ
+		Matriz comparacionDeCriterios = decisor.getMatrizComparacionCriterios(criterios);//SEGUIR CON ESTA MATRIZ
 		//ARMA LAS MATRICES DE COMPARACIONES ENTRE ALTERNATIVAS PARA CADA CRITERIO HOJA
-		//decisor.compararAlternativas();
+		decisor.compararAlternativas();
 
-		//Vector<Score> resultados = decisor.calcular();
+		Vector<Score> resultados = decisor.calcular(comparacionDeCriterios);
+		
 		//VentanaResultados vr= new VentanaResultados();
 		//vr.mostrarResultados(resultados);
 		//for (Score s:resultados){
