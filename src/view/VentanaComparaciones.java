@@ -28,7 +28,7 @@ public class VentanaComparaciones extends JFrame {
 
 	private JPanel contentPane;
 	private Controller controlador;
-	private List<List<JSlider>> sliders;
+	private List<JSlider> sliders;
 	private List<Criterio> criterios;
 	private JTextField textField;
 	private Hashtable<Integer, String> escala;
@@ -53,10 +53,6 @@ public class VentanaComparaciones extends JFrame {
 		contentPane.setLayout(null);
 		controlador = c;
 		sliders = new ArrayList<>();
-		List<JSlider> criteriosPrincipales = new ArrayList<>();
-		List<JSlider> subcriterios = new ArrayList<>();
-		sliders.add(criteriosPrincipales);
-		sliders.add(subcriterios);
 		this.criterios = criterios;	
 
 		escala = new Hashtable<>();
@@ -106,11 +102,8 @@ public class VentanaComparaciones extends JFrame {
 				JLabel titulo = new JLabel(crit1+ " vs "+ crit2);
 				titulo.setFont(new Font("Tahoma", Font.PLAIN, 18));
 				JSlider s = new JSlider();
-<<<<<<< HEAD
 				c1.setComparacion(c2, s);  //CADA CRITERIO TIENE UNA REFERENCIA AL SLIDER QUE LE CORRESPONDE CON OTRO CRITERIO
-=======
 			    sliders.add(s); // Faltaba agregarlo a la lista de sliders
->>>>>>> master
 				s.setMaximum(9);
 				s.setMinimum(-9);
 				s.setValue(0);
@@ -138,12 +131,10 @@ public class VentanaComparaciones extends JFrame {
 				panel.add(descripcion);
 				panel.add(s);	
 				
-<<<<<<< HEAD
 			}	
 			List<Criterio> subcriterios = criterios.get(i).getSubcriterios();
 			if (subcriterios != null){
 				this.mostrarComparaciones(subcriterios);
-=======
 			}			
 		}
 		
@@ -152,27 +143,21 @@ public class VentanaComparaciones extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				List<Double> puntajes = new ArrayList<>();
-				for (JSlider s : sliders){ //Este pedazo de codigo lo modifique para que 
-					//cuando el getvalue es 0 que transmita un 1 al controladores
-				Double valor=(double) s.getValue();
-				if (valor<0)
-					puntajes.add(1/valor);
-				else {
-					if(valor==0)
-						puntajes.add(1.0);
-					else
-						puntajes.add(valor);
-				}
+				for (JSlider s : sliders){
+					Double valor=(double) s.getValue();
+					if (valor<0)
+						puntajes.add(1/valor);
+					else {
+						if(valor==0)
+							puntajes.add(1.0);
+						else
+							puntajes.add(valor);
+					}
 				}
 				System.out.println(puntajes);
-				controlador.setComparacionPareada(puntajes);
 				controlador.setCriterios(criterios);
 				controlador.buscar();
-				
->>>>>>> master
 			}
-		}	
+		});
 	}
-	
-
 }

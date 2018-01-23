@@ -446,22 +446,10 @@ public class VentanaInicial extends JFrame  {
 				datos.add(rdbtnBluethoot.isSelected());
 				//
 				controlador.setDatos(datos);
-<<<<<<< HEAD
 				VentanaComparaciones vc = new VentanaComparaciones(controlador, criterios, vi);
 				vc.setVisible(true);
 				vi.setVisible(false);
-=======
-				
-				
-				
-				for (String criterio:criterios)
-					System.out.println(criterio);
-				VentanaComparaciones vc = new VentanaComparaciones(controlador, criterios);
-				
-				vc.show();
-				
 			
->>>>>>> master
 			}
 			
 		});

@@ -138,7 +138,7 @@ public class Matriz {
 			text=text+"]";
 		return text;
 	}
-	public boolean Consistencia() {	//se tiene que llamar con la matriz sin normalizar
+	/*public boolean Consistencia() {	//se tiene que llamar con la matriz sin normalizar
 		Matriz matrizNueva = clone(this);
 		Vector<Double> vector = getVector();
 		Vector<Double> primeraInstancia = new Vector<Double>();
@@ -161,7 +161,7 @@ public class Matriz {
 			return true;
 		else
 			return false;
-	}
+	}*/
 
 	
 	public double getIndiceAleatorio(int size) {// Devuelve una aproximacion del RI. Extraida de internet(No estaba en las filminas)
