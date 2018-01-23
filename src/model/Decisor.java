@@ -25,6 +25,7 @@ public class Decisor {
 		
 	}
 	
+<<<<<<< HEAD
 	public Matriz getMatrizComparacionCriterios(List<Criterio> criterios){
 		//HACE UNA MATRIZ PARA LOS CRITERIOS PADRES.SI ALGUN CRITERIO TIENE SUBCRITERIOS SE GENERA UNA MATRIZ APARTE
 		//Y SE LA REFERENCIA DESDE EL CRITERIO
@@ -34,6 +35,22 @@ public class Decisor {
 			List<Criterio> comparaciones = c1.getComparados();
 			//System.out.println( "f vale "+f+" "+c1.nombre+ " "+comparaciones.size());
 			//SE COMPARA CON EL MISMO
+=======
+	public void armarMatrizComparaciones(List<Double> comparacionPareada){
+		
+		Matriz matrizCriterios = new Matriz (criterios.size(),criterios.size(), null);
+		for(int f=0;f<criterios.size();f++){ ///Intento de arreglo 
+			for(int c=0;c<criterios.size();c++){
+				if(c>f){ ///Agrego de comparacion pareada si esta en la mitad correcta de la matriz
+					matrizCriterios.set(f, c, comparacionPareada.remove(0));// Tira error porque comparacionPareada llega vacia
+				}
+				if(c==f) //Si esta en la diagonal pongo un 1
+					matrizCriterios.set(f, c, 1.0);
+			}
+		}
+/*
+		for (int f = 0; f<criterios.size(); f++){
+>>>>>>> master
 			int c = f;
 			matrizCriteriosLocal.set(f, c, 1.0);
 			c++;
@@ -51,10 +68,16 @@ public class Decisor {
 				//System.out.println("setea la matriz "+m.toString() );
 				c1.setMatriz(m);
 			}
+<<<<<<< HEAD
 		}
 		matrizCriteriosLocal.complementar();
 		return matrizCriteriosLocal;
 		
+=======
+		}*/
+		matrizCriterios.complementar();
+		matrices.add(matrizCriterios);
+>>>>>>> master
 	}
 	
 		
