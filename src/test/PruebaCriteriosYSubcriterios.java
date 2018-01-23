@@ -21,10 +21,12 @@ public class PruebaCriteriosYSubcriterios {
 		financiacion.addSubcriterio(precio);
 		financiacion.addSubcriterio(cuotas);
 		Pc a1 = new Pc();
+		a1.set("modelo", "pc1");
 		a1.set("precio", 10.50);
 		a1.set("cuotas", 3.8);
 		a1.set("garantia", 1.5);
 		Pc a2 = new Pc();
+		a2.set("modelo", "pc2");
 		a2.set("precio", 15.0);
 		a2.set("cuotas", 2.4);
 		a2.set("garantia", 3.5);

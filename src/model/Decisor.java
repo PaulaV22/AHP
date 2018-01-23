@@ -59,6 +59,7 @@ public class Decisor {
 	
 		
 	private List<Criterio> aplanarCriterios(){
+		//DEVUELVE TODOS LOS CRITERIOS HOJAS
 		List<Criterio> salida = new ArrayList<>();
 		for (Criterio c:criterios){
 			salida.addAll(c.getHojas());
@@ -167,13 +168,17 @@ public class Decisor {
 		//OBTIENE EL VECTOR DE COMPARACION DE CRITERIOS PARA TODOS LOS CRITERIOS DEL NIVEL SUPERIOR, TENGAN O NO SUBCRITERIOS
 		setComparacionCriterios(criterios, matrizCriterios);
 		Vector<Double> ponderacionCriteriosFinales = this.getPonderacionesCriteriosHojas();
-		for (Double d:ponderacionCriteriosFinales){
-			System.out.println(d);
+		List<Criterio> criteriosFinales = this.aplanarCriterios();
+		for (int i = 0; i<criteriosFinales.size(); i++){
+			criteriosFinales.get(i).setPonderacion(ponderacionCriteriosFinales.get(i));
 		}
 		//GENERA LA MATRIZ FINAL 
 		Matriz scores = this.generarMatrizFinal(vectores, ponderacionCriteriosFinales);
 		Vector<Score> salida = this.getScores(scores);
 		salida.sort(new ComparadorScores());
+		for (Score s:salida){
+			System.out.println(s.getNombre()+" "+s.getScore());
+		}
 		return salida;		
 	}
 	
