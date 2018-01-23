@@ -73,7 +73,6 @@ public class Controller {
 	
 	public void buscar (){
 		//List<Pc> opciones = this.getFiltradas(); ESTO VA
-		
 		decisor = new Decisor(alternativas);  //CAMBIAR ALTERNATIVAS POR OPCIONES
 		decisor.setCriterios(criterios);
 		//ARMA LA MATRIZ DE COMPARACION DE CRITERIOS PADRES Y DE SUBCRITERIOS PONIENDOLOS EN LOS CRITERIOS COMPUESTOS
