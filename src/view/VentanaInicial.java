@@ -13,7 +13,7 @@ import model.CriterioCompuesto;
 import model.CriterioSimple;
 import model.filtros.Filtro;
 import model.filtros.Igual;
-import model.filtros.Menor;
+import model.filtros.MenorIgual;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -39,6 +39,7 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JComboBox;
+import javax.sql.rowset.FilteredRowSet;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
@@ -60,6 +61,7 @@ public class VentanaInicial extends JFrame  {
 	private static Controller controlador;
 	private List<Criterio> criterios;
 	private static VentanaInicial vi;
+	private List<Filtro> filtros;
 	/**
 	 * Launch the application.
 	 */
@@ -91,6 +93,7 @@ public class VentanaInicial extends JFrame  {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		criterios = new ArrayList<>();
+		filtros = new ArrayList<>();
 		
 ////////////////////////////TITULO///////////////////////////////////////////////////
 		JLabel lblquAndsBuscando = new JLabel("\u00BFQu\u00E9 est\u00E1s buscando?");
@@ -109,6 +112,15 @@ public class VentanaInicial extends JFrame  {
 		contentPane.add(lblMarca);
 		
 		JComboBox listMarcas = new JComboBox();
+		listMarcas.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				if (!((String)listMarcas.getSelectedItem()).equals("Cualquiera")){
+					Filtro filtroMarca = new Igual ("marca", ((String)listMarcas.getSelectedItem()).toLowerCase());
+					filtros.add(filtroMarca);
+				}
+			}
+		});
 		listMarcas.setModel(new DefaultComboBoxModel(new String[] {"Cualquiera", "Acer", "Compaq", "Dell", "HP", "Lenovo", "Mac", "Samsung", "Vaio"}));
 		listMarcas.setBounds(135, 154, 146, 26);
 		contentPane.add(listMarcas);
@@ -125,17 +137,42 @@ public class VentanaInicial extends JFrame  {
 		lblProgramacin.setBounds(600, 130, 155, 20);
 		contentPane.add(lblProgramacin);
 		
-		JRadioButton rdbtnNulo = new JRadioButton("Nulo");
-		rdbtnNulo.setBounds(562, 153, 69, 29);
-		contentPane.add(rdbtnNulo);
+		JRadioButton programacionBaja= new JRadioButton("Bajo");
+		programacionBaja.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				if (programacionBaja.isSelected()){
+					//hacer filtro de programacion baja
+				}
+			}
+		});
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Medio");
-		rdbtnNewRadioButton.setBounds(638, 153, 83, 29);
-		contentPane.add(rdbtnNewRadioButton);
+		programacionBaja.setBounds(562, 153, 69, 29);
+		contentPane.add(programacionBaja);
 		
-		JRadioButton rdbtnAlto = new JRadioButton("Alto");
-		rdbtnAlto.setBounds(728, 153, 73, 29);
-		contentPane.add(rdbtnAlto);
+		JRadioButton programacionMedia = new JRadioButton("Medio");
+		programacionMedia.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				if (programacionMedia.isSelected()){
+					//hacer filtro de programacion media
+				}
+			}
+		});
+		programacionMedia.setBounds(638, 153, 83, 29);
+		contentPane.add(programacionMedia);
+		
+		JRadioButton programacionAlta = new JRadioButton("Alto");
+		programacionAlta.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				if (programacionAlta.isSelected()){
+					//hacer filtro de programacion alta
+				}
+			}
+		});
+		programacionAlta.setBounds(728, 153, 73, 29);
+		contentPane.add(programacionAlta);
 		
 		JLabel lblEdicinAudiovisual = new JLabel("Edici\u00F3n audiovisual");
 		lblEdicinAudiovisual.setHorizontalAlignment(SwingConstants.CENTER);
@@ -417,7 +454,7 @@ public class VentanaInicial extends JFrame  {
 				Double preciomax = Double.valueOf(textFieldPrecio.getText());
 				List <Filtro> filtros = new ArrayList<>();
 				if (!preciomax.equals(0.0)){
-					Filtro preciomenor = new Menor ("precio", preciomax);
+					Filtro preciomenor = new MenorIgual ("precio", preciomax);
 					filtros.add(preciomenor);
 				}
 				if (!listMarcas.getSelectedItem().toString().equals("Cualquiera")){
